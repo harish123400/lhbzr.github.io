@@ -18,4 +18,4 @@ exclude: ["node_modules", "src", "tasks", "Gruntfile.js", "package.json"]
 
 # Conversion
 markdown: kramdown
-highlighter: rouge
+highlighter: pygments
