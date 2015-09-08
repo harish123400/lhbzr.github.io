@@ -1,9 +1,21 @@
+# Serving
 title: LHBZR
-email: Luis@dotcore.com.br
 description: Front-End Developer
 baseurl: ""
 url: "http://lhbzr.github.io"
-github_username: lhbzr
+
+# User
+email: Luis@dotcore.com.br
+github: lhbzr
+behance: lhbzr
+linkedin: lhbzr
+tumblr: dotcore
+
+# Handling Reading
+encoding: utf-8
+include: [".htacess"]
+exclude: ["node_modules", "src", "tasks", "Gruntfile.js", "package.json"]
+
+# Conversion
 markdown: kramdown
 highlighter: rouge
-encoding: utf-8
