@@ -1,0 +1,9 @@
+title: LHBZR
+email: Luis@dotcore.com.br
+description: Front-End Developer
+baseurl: ""
+url: "http://lhbzr.github.io"
+github_username: lhbzr
+markdown: kramdown
+highlighter: rouge
+encoding: utf-8
