@@ -5,7 +5,15 @@ module.exports = function (grunt) {
   require('time-grunt')(grunt);
 
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json')
+    pkg: grunt.file.readJSON('package.json'),
+    src: 'src',
+    src_css: '<%= src %>/css',
+    src_js: '<%= src %>/js',
+    src_img: '<%= src %>/img',
+    dist: 'dist',
+    dist_css: '<%= dist %>/css',
+    dist_js: '<%= dist %>/js',
+    dist_img: '<%= dist %>/img'
   });
 
   grunt.loadTasks('tasks');

@@ -3,11 +3,11 @@ module.exports = function (grunt) {
 
   grunt.config('watch', {
     css: {
-      files: ['src/css/**/*.scss'],
+      files: ['<%= src_css %>/**/*.scss'],
       tasks: ['css']
     },
     js: {
-      files: ['src/js/**/*.js'],
+      files: ['<%= src_js %>/**/*.js'],
       tasks: ['js']
     }
   });

@@ -8,7 +8,7 @@ module.exports = function (grunt) {
     },
     main: {
       files: {
-        'dist/css/main.css': 'src/css/main.scss'
+        '<%= dist_css %>/main.css': '<%= src_css %>/main.scss'
       }
     }
   });
