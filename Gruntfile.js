@@ -23,7 +23,7 @@ module.exports = function (grunt) {
       'css',
       'js',
       'img',
-      'shell:main',
+      'shell:build',
       'html'
     ]
   );
