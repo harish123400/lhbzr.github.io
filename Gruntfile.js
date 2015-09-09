@@ -11,14 +11,14 @@ module.exports = function (grunt) {
   grunt.loadTasks('tasks');
 
   grunt.registerTask('html', 'Minify HTML', ['htmlmin:main']);
-  grunt.registerTask('css', 'Compile, Minify and Prefix SCSS', ['sass:main', 'postcss:main']);
+  grunt.registerTask('css', 'Compile, Minify and Prefix CSS', ['sass:main', 'postcss:main']);
   grunt.registerTask('js', 'Concat and Minify JS', ['uglify:main']);
   grunt.registerTask('img', 'Minify IMG', ['imagemin:main']);
 
-  grunt.registerTask('w', 'Watch the changes', ['watch']);
+  grunt.registerTask('w', 'Watch the changes on HTML, CSS, JS and IMG', ['watch']);
 
   grunt.registerTask('build',
-    'Build the application',
+    'Build the entire application',
     [
       'css',
       'js',
