@@ -1,0 +1,15 @@
+<nav class="menu">
+  <div class="menu-wrapper">
+    <ul class="menu-list">
+      {% for page in site.pages %}
+      {% if page.title %}
+      <li class="menu-item">
+        <a href="{{ page.url | prepend: site.baseurl }}" class="menu-link">
+          {{ page.title }}
+        </a>
+      </li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</nav>
