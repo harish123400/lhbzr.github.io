@@ -6,7 +6,7 @@ module.exports = function (grunt) {
       files: [{
         expand: true,
         cwd: '<%= src_js %>',
-        src: ['**/*.js'],
+        src: ['*.js'],
         dest: '<%= dist_js %>',
         ext: '.min.js',
         extDot: 'first'
