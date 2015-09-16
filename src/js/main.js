@@ -8,9 +8,7 @@
 
   var light;
 
-  var clock;
-
-  var cubes, cube;
+  var circle, cube, cubeSleeve;
 
   var composer, effect;
 
@@ -21,7 +19,7 @@
 
 
   function createMesh(geometry) {
-    var mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial());
+    var mesh = ;
 
     return mesh;
   }
@@ -31,7 +29,7 @@
     scene = new THREE.Scene();
 
     camera = new THREE.PerspectiveCamera(75, w / h, 0.1, 1000);
-    camera.position.z = 10;
+    camera.position.z = 250;
 
     scene.add(camera);
 
@@ -48,19 +46,26 @@
 
     scene.add(light);
 
-    clock = new THREE.Clock();
+    circle = new THREE.Object3D();
 
-    cubes = new THREE.Group();
+    cube = [];
+    cubeSleeve = [];
 
-    for (var i = 0; i < 100; i++) {
-      cube = createMesh(new THREE.BoxGeometry(0.5, 0.5, 0.5));
+    for (var i = 0; i < 15; i++) {
+      cube[i] = new THREE.Mesh(new THREE.BoxGeometry(20, 20, 20), new THREE.MeshPhongMaterial());
+      cube[i].position.y = 100;
+      cube[i].rotation.x = randomIntFromInterval(0, 180);
+      cube[i].rotation.y = randomIntFromInterval(0, 180);
 
-      cube.position.y = randomIntFromInterval(0, 1000);
+      //Position each cube in a circle formation. (http://inmosystems.com/demos/surrogateRings/source)
+      cubeSleeve[i] = new THREE.Object3D();
+      cubeSleeve[i].add(cube[i]);
+      cubeSleeve[i].rotation.z = i * (360 / 15) * Math.PI / 180;
 
-      cubes.add(cube);
+      circle.add(cubeSleeve[i]);
     }
 
-    scene.add(cubes);
+    scene.add(circle);
 
     composer = new THREE.EffectComposer(renderer);
     composer.addPass(new THREE.RenderPass(scene, camera));
@@ -85,15 +90,11 @@
   function render() {
     requestAnimationFrame(render);
 
-    for (var i = 0; i < 100; i++) {
-      var delta = clock.getDelta();
-      cubes.children[i].rotation.x += 1 * delta;
-      cubes.children[i].rotation.y += 1 * delta;
-
-      var time = clock.getElapsedTime() * 0.5;
-      cubes.children[i].position.x = Math.cos(time) * 2;
-      cubes.children[i].position.y = Math.sin(time) * 2 - 0.4;
+    for (var i = 0; i < 15; i++) {
+      cube[i].rotation.x += 0.01;
     }
+
+    circle.rotation.z += 0.01;
 
     renderer.render(scene, camera);
 
@@ -101,4 +102,13 @@
   }
 
   render();
+
+
+  window.addEventListener('resize', function () {
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(w, h);
+
+  }, false);
 })();
