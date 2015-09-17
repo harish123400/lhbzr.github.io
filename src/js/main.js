@@ -3,10 +3,12 @@
   var windowHeight = window.innerHeight;
 
   var header = document.querySelector('.header');
+  var headerWidth = header.offsetWidth;
+  var headerHeight = header.offsetHeight;
   var headerCanvas = document.querySelector('.header-canvas');
 
   var scene, camera, renderer, light, composer, effect;
-  var circle, cube, cubeSleeve;
+  var circle, triangle, triangleSleeve, particles, particle;
 
 
   function randomIntFromInterval(min, max) {
@@ -23,7 +25,8 @@
     scene.add(camera);
 
     renderer = new THREE.WebGLRenderer({ canvas: headerCanvas });
-    renderer.setSize(windowWidth, windowHeight);
+    renderer.setSize(headerWidth, headerHeight);
+    renderer.setClearColor(0x202020);
 
     light = new THREE.DirectionalLight(0xffffff, 1);
     light.position.set(1, 1, 1);
@@ -37,21 +40,23 @@
 
     circle = new THREE.Object3D();
 
-    cube = [];
-    cubeSleeve = [];
+    triangle = [];
+    triangleSleeve = [];
 
     for (var i = 0; i < 15; i++) {
-      cube[i] = new THREE.Mesh(new THREE.BoxGeometry(20, 20, 20), new THREE.MeshPhongMaterial());
-      cube[i].position.y = 100;
-      cube[i].rotation.x = randomIntFromInterval(0, 180);
-      cube[i].rotation.y = randomIntFromInterval(0, 180);
+      triangle[i] = new THREE.Mesh(new THREE.TetrahedronGeometry(65, 0), new THREE.MeshPhongMaterial());
+      triangle[i].position.y = 100;
 
-      //Position each cube in a circle formation. (http://inmosystems.com/demos/surrogateRings/source)
-      cubeSleeve[i] = new THREE.Object3D();
-      cubeSleeve[i].add(cube[i]);
-      cubeSleeve[i].rotation.z = i * (360 / 15) * Math.PI / 180;
+      //Position each triangle in a circle formation. (http://inmosystems.com/demos/surrogateRings/source)
+      triangleSleeve[i] = new THREE.Object3D();
+      triangleSleeve[i].add(triangle[i]);
+      triangleSleeve[i].rotation.z = i * (360 / 15) * Math.PI / 180;
 
-      circle.add(cubeSleeve[i]);
+      circle.add(triangleSleeve[i]);
+    }
+
+    for (var i = 0; i < 100; i++) {
+      scene.add(particle);
     }
 
     scene.add(circle);
@@ -79,8 +84,7 @@
     requestAnimationFrame(render);
 
     for (var i = 0; i < 15; i++) {
-      cube[i].rotation.y += 0.01;
-      cube[i].rotation.x += 0.01;
+      triangle[i].rotation.x += 0.01;
     }
 
     circle.rotation.z += 0.01;
@@ -100,6 +104,6 @@
     camera.aspect = windowWidth / windowHeight;
     camera.updateProjectionMatrix();
 
-    renderer.setSize(windowWidth, windowHeight);
+    renderer.setSize(headerWidth, headerHeight);
   });
 })();
