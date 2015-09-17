@@ -88,6 +88,8 @@ template {
 
 a {
   background-color: transparent;
+  color: inherit; // ! Default color.
+  text-decoration: none; // ! Remove decoration.
 }
 
 /**

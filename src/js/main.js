@@ -1,16 +1,12 @@
 (function() {
-  var canvas = document.querySelector('.canvas');
+  var windowWidth = window.innerWidth;
+  var windowHeight = window.innerHeight;
 
-  var w = window.innerWidth;
-  var h = window.innerHeight;
+  var header = document.querySelector('.header');
+  var headerCanvas = document.querySelector('.header-canvas');
 
-  var scene, camera, renderer;
-
-  var light;
-
+  var scene, camera, renderer, light, composer, effect;
   var circle, cube, cubeSleeve;
-
-  var composer, effect;
 
 
   function randomIntFromInterval(min, max) {
@@ -18,23 +14,16 @@
   }
 
 
-  function createMesh(geometry) {
-    var mesh = ;
-
-    return mesh;
-  }
-
-
   function init() {
     scene = new THREE.Scene();
 
-    camera = new THREE.PerspectiveCamera(75, w / h, 0.1, 1000);
+    camera = new THREE.PerspectiveCamera(75, windowWidth / windowHeight, 0.1, 1000);
     camera.position.z = 250;
 
     scene.add(camera);
 
-    renderer = new THREE.WebGLRenderer();
-    renderer.setSize(w, h);
+    renderer = new THREE.WebGLRenderer({ canvas: headerCanvas });
+    renderer.setSize(windowWidth, windowHeight);
 
     light = new THREE.DirectionalLight(0xffffff, 1);
     light.position.set(1, 1, 1);
@@ -71,15 +60,13 @@
     composer.addPass(new THREE.RenderPass(scene, camera));
 
     effect = new THREE.ShaderPass(THREE.DotScreenShader);
-    effect.uniforms['scale'].value = 4;
+    effect.uniforms['scale'].value = 5;
     composer.addPass(effect);
 
-    effect = new THREE.ShaderPass( THREE.RGBShiftShader);
-    effect.uniforms['amount'].value = 0.0015;
+    effect = new THREE.ShaderPass(THREE.RGBShiftShader);
+    effect.uniforms['amount'].value = 0.005;
     effect.renderToScreen = true;
     composer.addPass(effect);
-
-    canvas.appendChild(renderer.domElement);
 
     renderer.render(scene, camera);
   }
@@ -87,10 +74,12 @@
   init();
 
 
+
   function render() {
     requestAnimationFrame(render);
 
     for (var i = 0; i < 15; i++) {
+      cube[i].rotation.y += 0.01;
       cube[i].rotation.x += 0.01;
     }
 
@@ -105,10 +94,12 @@
 
 
   window.addEventListener('resize', function () {
-    camera.aspect = w / h;
+    windowHeight = window.innerHeight;
+    windowWidth = window.innerWidth;
+
+    camera.aspect = windowWidth / windowHeight;
     camera.updateProjectionMatrix();
 
-    renderer.setSize(w, h);
-
-  }, false);
+    renderer.setSize(windowWidth, windowHeight);
+  });
 })();

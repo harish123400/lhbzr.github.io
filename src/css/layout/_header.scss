@@ -1,8 +1,28 @@
 .header {
-  background: #232A35;
+  display: table;
   height: 100vh;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
 }
 
 .header-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
 
+.header-title {
+  color: #FFF;
+  display: block;
+  font: bold 40px 'Oswald';
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 2px -2px #F00, -2px -2px #0FF, -2px  2px #FF0, 2px 2px #00F;
+}
+
+.header-canvas {
+  left: 0;
+  position: absolute;
+  top: 0;
+  z-index: -1;
 }
