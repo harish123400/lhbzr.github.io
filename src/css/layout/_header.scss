@@ -1,6 +1,6 @@
 .header {
   display: table;
-  height: calc(100vh - 20px);
+  height: 100%;
   overflow: hidden;
   position: relative;
   text-align: center;
@@ -15,10 +15,10 @@
 .header-title {
   color: #FFF;
   display: block;
-  font-size: 40px;
+  font-size: 25px;
   font-weight: bold;
   position: relative;
-  text-shadow: 2px -2px #F00, -2px -2px #0FF, -2px  2px #FF0, 2px 2px #00F;
+  text-shadow: 2px -2px #F00, -2px  2px #0FF, -2px -2px #FF0, 2px 2px #00F;
   z-index: 2;
 }
 
@@ -35,7 +35,7 @@
 
 .header-link {
   color: #FFF;
-  font-size: 20px;
+  font-size: 12px;
   position: absolute;
   text-transform: uppercase;
 
