@@ -9,6 +9,7 @@
   }
 
 
+
   //Link.
   var headerLink = document.querySelectorAll('.header-link');
   var linkOverInterval, linkOutInterval;
@@ -46,6 +47,8 @@
     });
   }
 
+
+
   //Canvas.
   var windowWidth = window.innerWidth;
   var windowHeight = window.innerHeight;
@@ -56,7 +59,41 @@
   var scene, camera, renderer, light, composer, effect;
   var circle, triangle, triangleSleeve, particles, particle;
 
+  var context, source, analyser, audio, frequency, buffer;
+
+
+
   function init() {
+    context = new (window.AudioContext || window.webkitAudioContext)();
+
+    audio = document.createElement('audio');
+    audio.autoplay = true;
+
+    var request = new XMLHttpRequest();
+    request.open('GET', 'dist/music/black-cat.mp3', true);
+    request.responseType = 'blob';
+    request.onload = function(e) {
+      source = document.createElement('source');
+      source.src = (window.URL || window.webkitURL || {}).createObjectURL(this.response);
+      source.type = 'audio/mp3';
+
+      audio.appendChild(source);
+    };
+    request.send();
+
+    buffer = context.createMediaElementSource(audio);
+
+    analyser = context.createAnalyser();
+    analyser.smoothingTimeConstant = 0.3;
+    analyser.fftSize = 512;
+
+    buffer.connect(analyser);
+    analyser.connect(context.destination);
+
+    frequency = new Uint8Array(analyser.frequencyBinCount);
+
+
+
     scene = new THREE.Scene();
 
     camera = new THREE.PerspectiveCamera(75, windowWidth / windowHeight, 0.1, 1000);
@@ -83,21 +120,17 @@
     triangle = [];
     triangleSleeve = [];
 
-    for (var i = 0; i < 15; i++) {
-      triangle[i] = new THREE.Mesh(new THREE.TetrahedronGeometry(65, 0), new THREE.MeshPhongMaterial());
+    for (var i = 0; i < 50; i++) {
+      triangle[i] = new THREE.Mesh(new THREE.TetrahedronGeometry(50, 0), new THREE.MeshPhongMaterial());
       triangle[i].position.y = 100;
 
       //Position each triangle in a circle formation. (http://inmosystems.com/demos/surrogateRings/source)
       triangleSleeve[i] = new THREE.Object3D();
       triangleSleeve[i].add(triangle[i]);
-      triangleSleeve[i].rotation.z = i * (360 / 15) * Math.PI / 180;
+      triangleSleeve[i].rotation.z = i * (360 / 50) * Math.PI / 180;
 
       circle.add(triangleSleeve[i]);
     }
-
-    //    for (var i = 0; i < 100; i++) {
-    //      scene.add(particle);
-    //    }
 
     scene.add(circle);
 
@@ -113,11 +146,10 @@
     effect.renderToScreen = true;
     composer.addPass(effect);
 
-    //    effect = new THREE.GlitchPass();
-    //    effect.renderToScreen = true;
-    //    composer.addPass(effect);
-
     renderer.render(scene, camera);
+
+
+    audio.play();
   }
 
   init();
@@ -127,8 +159,8 @@
   function render() {
     requestAnimationFrame(render);
 
-    for (var i = 0; i < 15; i++) {
-      triangle[i].rotation.x += 0.01;
+    for (var i = 0; i < 50; i++) {
+      triangle[i].scale.z = ((frequency[i] / 256) * 2.5) + 0.01;
     }
 
     circle.rotation.z += 0.01;
@@ -136,9 +168,12 @@
     renderer.render(scene, camera);
 
     composer.render();
+
+    analyser.getByteFrequencyData(frequency);
   }
 
   render();
+
 
 
   window.addEventListener('resize', function () {
