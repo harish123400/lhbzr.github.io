@@ -1,4 +1,14 @@
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
+  //Variables.
+  var windowWidth = window.innerWidth;
+  var windowHeight = window.innerHeight;
+
+  var header = document.querySelector('.header');
+  var headerLink = document.querySelectorAll('.header-link');
+  var headerCanvas = document.querySelector('.header-canvas');
+
+
+
   //Functions.
   function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -11,7 +21,6 @@
 
 
   //Link.
-  var headerLink = document.querySelectorAll('.header-link');
   var linkOverInterval, linkOutInterval;
 
   for (var i = 0; i < headerLink.length; i++) {
@@ -22,7 +31,7 @@
         var linkValue = link.innerHTML.trim();
 
         link.innerHTML = replaceAt(linkValue, randomInt(0, linkValue.length - 1), String.fromCharCode(randomInt(65, 122)));
-      }, 50)
+      }, 50);
     });
 
     headerLink[i].addEventListener('mouseout', function() {
@@ -49,29 +58,19 @@
 
 
 
-  //Canvas.
-  var windowWidth = window.innerWidth;
-  var windowHeight = window.innerHeight;
+  //Audio.
+  var context, audio, source, request, buffer, analyser, frequency;
 
-  var header = document.querySelector('.header');
-  var headerCanvas = document.querySelector('.header-canvas');
-
-  var scene, camera, renderer, light, composer, effect;
-  var circle, triangle, triangleSleeve, particles, particle;
-
-  var context, source, analyser, audio, frequency, buffer;
-
-
-
-  function init() {
+  function initAudio() {
     context = new (window.AudioContext || window.webkitAudioContext)();
 
     audio = document.createElement('audio');
-    audio.autoplay = true;
 
-    var request = new XMLHttpRequest();
-    request.open('GET', 'dist/music/black-cat.mp3', true);
+    request = new XMLHttpRequest();
+
+    request.open('GET', 'dist/music/ascent.mp3', true);
     request.responseType = 'blob';
+
     request.onload = function(e) {
       source = document.createElement('source');
       source.src = (window.URL || window.webkitURL || {}).createObjectURL(this.response);
@@ -79,21 +78,35 @@
 
       audio.appendChild(source);
     };
+
     request.send();
 
     buffer = context.createMediaElementSource(audio);
 
     analyser = context.createAnalyser();
     analyser.smoothingTimeConstant = 0.3;
-    analyser.fftSize = 512;
+    analyser.fftSize = 2048;
 
     buffer.connect(analyser);
     analyser.connect(context.destination);
 
     frequency = new Uint8Array(analyser.frequencyBinCount);
 
+    audio.play();
+
+    audio.addEventListener('ended', function () {
+      audio.play();
+    });
+  }
 
 
+
+  //Scene.
+  var scene, camera, renderer, light, composer, effect;
+  var circle, triangle, triangleSleeve;
+  var triangleLength = 100;
+
+  function initScene() {
     scene = new THREE.Scene();
 
     camera = new THREE.PerspectiveCamera(75, windowWidth / windowHeight, 0.1, 1000);
@@ -120,20 +133,27 @@
     triangle = [];
     triangleSleeve = [];
 
-    for (var i = 0; i < 50; i++) {
-      triangle[i] = new THREE.Mesh(new THREE.TetrahedronGeometry(50, 0), new THREE.MeshPhongMaterial());
+    for (var i = 0; i < triangleLength; i++) {
+      triangle[i] = new THREE.Mesh(
+        new THREE.TetrahedronGeometry(50, 0),
+        new THREE.MeshPhongMaterial({
+          color: 0xFFFFFF
+        })
+      );
+
       triangle[i].position.y = 100;
 
-      //Position each triangle in a circle formation. (http://inmosystems.com/demos/surrogateRings/source)
+      //Surrogate Rings. [http://inmosystems.com/demos/surrogateRings/source/]
       triangleSleeve[i] = new THREE.Object3D();
       triangleSleeve[i].add(triangle[i]);
-      triangleSleeve[i].rotation.z = i * (360 / 50) * Math.PI / 180;
+      triangleSleeve[i].rotation.z = i * (360 / triangleLength) * Math.PI / 180;
 
       circle.add(triangleSleeve[i]);
     }
 
     scene.add(circle);
 
+    //Shaders. [http://threejs.org/examples/#webgl_postprocessing]
     composer = new THREE.EffectComposer(renderer);
     composer.addPass(new THREE.RenderPass(scene, camera));
 
@@ -147,20 +167,15 @@
     composer.addPass(effect);
 
     renderer.render(scene, camera);
-
-
-    audio.play();
   }
 
-  init();
 
 
-
+  //Render.
   function render() {
-    requestAnimationFrame(render);
-
-    for (var i = 0; i < 50; i++) {
-      triangle[i].scale.z = ((frequency[i] / 256) * 2.5) + 0.01;
+    for (var i = 0; i < triangleLength; i++) {
+      //triangle[i].rotation.x += 0.01;
+      triangle[i].scale.z = ((frequency[i] / 256) * 2) + 0.01;
     }
 
     circle.rotation.z += 0.01;
@@ -170,12 +185,13 @@
     composer.render();
 
     analyser.getByteFrequencyData(frequency);
+
+    requestAnimationFrame(render);
   }
 
-  render();
 
 
-
+  //Resize.
   window.addEventListener('resize', function () {
     windowHeight = window.innerHeight;
     windowWidth = window.innerWidth;
@@ -185,4 +201,13 @@
 
     renderer.setSize(windowWidth, windowHeight);
   });
-})();
+
+
+
+  //Init.
+  (function() {
+    initAudio();
+    initScene();
+    render();
+  })();
+});
