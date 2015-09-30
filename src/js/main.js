@@ -3,9 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
   var windowWidth = window.innerWidth;
   var windowHeight = window.innerHeight;
 
-  var header = document.querySelector('.header');
-  var headerLink = document.querySelectorAll('.header-link');
-  var headerCanvas = document.querySelector('.header-canvas');
+  var intro = document.querySelector('.intro');
+  var introCanvas = document.querySelector('.intro-canvas');
+  var introLink = document.querySelectorAll('.intro-link');
 
 
 
@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
   //Link.
   var linkOverInterval, linkOutInterval;
 
-  for (var i = 0; i < headerLink.length; i++) {
-    headerLink[i].addEventListener('mouseover', function() {
+  for (var i = 0; i < introLink.length; i++) {
+    introLink[i].addEventListener('mouseover', function() {
       var link = this;
 
       linkOverInterval = setInterval(function() {
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }, 50);
     });
 
-    headerLink[i].addEventListener('mouseout', function() {
+    introLink[i].addEventListener('mouseout', function() {
       clearInterval(linkOverInterval);
 
       var link = this,
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     request = new XMLHttpRequest();
 
-    request.open('GET', 'dist/music/ascent.mp3', true);
+    request.open('GET', 'dist/music/black-cat.mp3', true);
     request.responseType = 'blob';
 
     request.onload = function(e) {
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
     buffer = context.createMediaElementSource(audio);
 
     analyser = context.createAnalyser();
-    analyser.smoothingTimeConstant = 0.3;
+    analyser.smoothingTimeConstant = 0.25;
     analyser.fftSize = 2048;
 
     buffer.connect(analyser);
@@ -114,16 +114,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     scene.add(camera);
 
-    renderer = new THREE.WebGLRenderer({ canvas: headerCanvas });
-    renderer.setSize(windowWidth, windowHeight);
-    renderer.setClearColor(0x202020);
+    renderer = new THREE.WebGLRenderer({
+      alpha: true,
+      canvas: introCanvas
+    });
 
-    light = new THREE.DirectionalLight(0xffffff, 1);
+    renderer.setClearColor(0xFFFFFF, 0)
+    renderer.setSize(windowWidth, windowHeight);
+
+    light = new THREE.DirectionalLight(0xFFFFFF, 1);
     light.position.set(1, 1, 1);
 
     scene.add(light);
 
-    light = new THREE.DirectionalLight(0xffffff, 1);
+    light = new THREE.DirectionalLight(0xFFFFFF, 1);
     light.position.set(-1, -1, 1);
 
     scene.add(light);

@@ -1,34 +1,27 @@
-// Vendors.
-@import
-  'vendors/shame';
-
-// Utils.
+//Utils.
 @import
   'utils/functions',
   'utils/helpers',
   'utils/mixins',
   'utils/variables';
 
-// Base.
+//Base.
 @import
   'base/classes',
   'base/reset',
-  'base/tags',
   'base/typography';
 
-// Layout.
+//Layout.
 @import
   'layout/footer',
-  'layout/forms',
   'layout/header',
   'layout/navigation';
 
-// Components.
+//Components.
 @import
-  'components/buttons';
+  'components/component';
 
-// Pages.
+//Pages.
 @import
-  'pages/about',
-  'pages/contact',
-  'pages/home';
+  'pages/intro',
+  'pages/about';
