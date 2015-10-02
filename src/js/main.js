@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   //Resize.
-  window.addEventListener('resize', function () {
+  function windowResize() {
     windowHeight = window.innerHeight;
     windowWidth = window.innerWidth;
 
@@ -204,7 +204,9 @@ document.addEventListener('DOMContentLoaded', function() {
     camera.updateProjectionMatrix();
 
     renderer.setSize(windowWidth, windowHeight);
-  });
+  }
+
+  window.addEventListener('resize', windowResize);
 
 
 
