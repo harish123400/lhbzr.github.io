@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     request = new XMLHttpRequest();
 
-    request.open('GET', 'dist/music/black-cat.mp3', true);
+    request.open('GET', 'dist/music/sunny-day.mp3', true);
     request.responseType = 'blob';
 
     request.onload = function(e) {
@@ -178,8 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
   //Render.
   function render() {
     for (var i = 0; i < triangleLength; i++) {
-      //triangle[i].rotation.x += 0.01;
-      triangle[i].scale.z = ((frequency[i] / 256) * 2) + 0.01;
+      triangle[i].scale.z = ((frequency[i] / 256) * 2);
     }
 
     circle.rotation.z += 0.01;
