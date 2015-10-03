@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
   //Render.
   function render() {
     for (var i = 0; i < triangleLength; i++) {
-      triangle[i].scale.z = ((frequency[i] / 256) * 2);
+      triangle[i].scale.z = ((frequency[i] / 256) * 2) + 0.01;
     }
 
     circle.rotation.z += 0.01;
