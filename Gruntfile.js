@@ -12,7 +12,7 @@ module.exports = function (grunt) {
     src_js: '<%= src %>/js',
     src_img: '<%= src %>/img',
     dist: 'dist',
-    dist_html: '/',
+    dist_html: '',
     dist_css: '<%= dist %>/css',
     dist_js: '<%= dist %>/js',
     dist_img: '<%= dist %>/img'
