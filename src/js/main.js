@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+(function() {
   //Variables.
   var windowWidth = window.innerWidth;
   var windowHeight = window.innerHeight;
@@ -10,6 +10,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   //Functions.
+  function get(url, callback) {
+    request = new XMLHttpRequest();
+
+    request.onreadystatechange = function() {
+      if (request.readyState === 4 && request.status === 200) {
+          callback(request.responseText);
+      }
+    };
+
+    request.open('GET', url, true);
+    request.send();
+  }
+
   function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
@@ -59,44 +72,48 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   //Audio.
-  var context, audio, source, request, buffer, analyser, frequency;
+  var audio, audioContext, audioAnalyser, audioBuffer, audioSource, audioFrequency;
+
+  var request;
+
+  var soundcloudClient = 'client_id=78c6552c14b382e23be3bce2fc411a82',
+      soundcloudPermalink = 'https://soundcloud.com/theblackkeys/gold-on-the-ceiling';
 
   function initAudio() {
-    context = new (window.AudioContext || window.webkitAudioContext)();
+    audio = new Audio();
+    audio.crossOrigin = 'anonymous';
 
-    audio = document.createElement('audio');
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-    request = new XMLHttpRequest();
+    audioSource = audioContext.createMediaElementSource(audio);
+    audioSource.connect(audioContext.destination);
 
-    request.open('GET', 'dist/music/sunny-day.mp3', true);
-    request.responseType = 'blob';
+    audioAnalyser = audioContext.createAnalyser();
+    audioAnalyser.smoothingTimeConstant = 0.05;
+    audioAnalyser.fftSize = 512 * 4;
+    audioSource.connect(audioAnalyser);
 
-    request.onload = function(e) {
-      source = document.createElement('source');
-      source.src = (window.URL || window.webkitURL || {}).createObjectURL(this.response);
-      source.type = 'audio/mp3';
+    get(
+      'http://api.soundcloud.com/resolve.json?url=' + soundcloudPermalink + '&' + soundcloudClient,
+      function (response) {
+        var information = JSON.parse(response);
 
-      audio.appendChild(source);
-    };
+        audio.src = information.stream_url + '?' + soundcloudClient;
+        audio.play();
 
-    request.send();
+        var musicTitle = document.querySelector('.intro-music-title');
+        musicTitle.setAttribute('href', information.permalink_url);
+        musicTitle.innerHTML = information.title;
 
-    buffer = context.createMediaElementSource(audio);
+        var musicUser = document.querySelector('.intro-music-user');
+        musicUser.setAttribute('href', information.user.permalink_url);
+        musicUser.innerHTML = information.user.username;
+      }
+    );
 
-    analyser = context.createAnalyser();
-    analyser.smoothingTimeConstant = 0.25;
-    analyser.fftSize = 2048;
+    audioAnalyser.connect(audioContext.destination);
 
-    buffer.connect(analyser);
-    analyser.connect(context.destination);
-
-    frequency = new Uint8Array(analyser.frequencyBinCount);
-
-    audio.play();
-
-    audio.addEventListener('ended', function () {
-      audio.play();
-    });
+    audioFrequency = new Uint8Array(audioAnalyser.frequencyBinCount);
   }
 
 
@@ -178,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
   //Render.
   function render() {
     for (var i = 0; i < triangleLength; i++) {
-      triangle[i].scale.z = ((frequency[i] / 256) * 2) + 0.01;
+      triangle[i].scale.z = ((audioFrequency[i] / 256) * 2) + 0.01;
     }
 
     circle.rotation.z += 0.01;
@@ -187,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     composer.render();
 
-    analyser.getByteFrequencyData(frequency);
+    audioAnalyser.getByteFrequencyData(audioFrequency);
 
     requestAnimationFrame(render);
   }
@@ -210,9 +227,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   //Init.
-  (function() {
-    initAudio();
-    initScene();
-    render();
-  })();
-});
+  initAudio();
+  initScene();
+  render();
+})();
