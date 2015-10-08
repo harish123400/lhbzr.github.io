@@ -89,7 +89,7 @@
     audioSource.connect(audioContext.destination);
 
     audioAnalyser = audioContext.createAnalyser();
-    audioAnalyser.smoothingTimeConstant = 0.05;
+    audioAnalyser.smoothingTimeConstant = 0.1;
     audioAnalyser.fftSize = 512 * 4;
     audioSource.connect(audioAnalyser);
 
@@ -114,6 +114,10 @@
     audioAnalyser.connect(audioContext.destination);
 
     audioFrequency = new Uint8Array(audioAnalyser.frequencyBinCount);
+
+    audio.addEventListener('ended', function() {
+      audio.play();
+    });
   }
 
 
@@ -183,7 +187,7 @@
     composer.addPass(effect);
 
     effect = new THREE.ShaderPass(THREE.RGBShiftShader);
-    effect.uniforms['amount'].value = 0.005;
+    effect.uniforms['amount'].value = 0.5;
     effect.renderToScreen = true;
     composer.addPass(effect);
 
@@ -195,7 +199,7 @@
   //Render.
   function render() {
     for (var i = 0; i < triangleLength; i++) {
-      triangle[i].scale.z = ((audioFrequency[i] / 256) * 2) + 0.01;
+      triangle[i].scale.z = ((audioFrequency[i] / 256) * 2.5) + 0.01;
     }
 
     circle.rotation.z += 0.01;

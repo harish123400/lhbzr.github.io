@@ -1,4 +1,4 @@
-//Introduction.
+// Introduction.
 .intro {
   display: table;
   height: 100%;
@@ -6,11 +6,24 @@
   position: relative;
   text-align: center;
   width: 100%;
+
+  &:after {
+    background: repeating-radial-gradient(center center, rgba(255, 255, 255, .5), rgba(0, 0, 0, .2) 1px, transparent 1px, transparent 100%);
+    background-size: 25px 25px;
+    bottom: 0;
+    content: '';
+    display: block;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+  }
 }
 
 
 
-//Wrapper.
+// Wrapper.
 .intro-wrapper {
   display: table-cell;
   text-align: center;
@@ -19,42 +32,17 @@
 
 
 
-//Letters.
+// Letters.
 .intro-letters {
   color: #FFF;
-  font-size: 40px;
-  font-weight: bold;
-}
-
-.intro-letter {
-  display: inline-block;
-  text-align: center;
-  width: 40px;
-}
-
-.intro-letter-l {
-
-}
-
-.intro-letter-h {
-
-}
-
-.intro-letter-b {
-
-}
-
-.intro-letter-z {
-
-}
-
-.intro-letter-r {
-
+  font-size: 20px;
+  letter-spacing: 1.2em;
+  margin-right: -1.2em;
 }
 
 
 
-//Canvas.
+// Canvas.
 .intro-canvas {
   left: 0;
   position: absolute;
@@ -64,7 +52,7 @@
 
 
 
-//Menu.
+// Menu.
 .intro-menu {
 
 }
@@ -79,38 +67,43 @@
   color: #FFF;
   font-size: 10px;
   font-weight: bold;
+  letter-spacing: 1.2em;
+  margin-right: -1.2em;
   position: absolute;
   text-transform: uppercase;
+  z-index: 2;
 }
 
 .intro-link-about {
-  left: 10px;
-  top: 10px;
+  left: 20px;
+  top: 20px;
 }
 
 .intro-link-blog {
-  right: 10px;
-  top: 10px;
+  right: 20px;
+  top: 20px;
 }
 
 .intro-link-resume {
-  bottom: 10px;
-  left: 10px;
+  bottom: 20px;
+  left: 20px;
 }
 
 .intro-link-contact {
-  bottom: 10px;
-  right: 10px;
+  bottom: 20px;
+  right: 20px;
 }
 
 
-//Music.
+// Music.
 .intro-music {
-  bottom: 10px;
+  bottom: 20px;
   color: #FFF;
   font-size: 10px;
   font-weight: bold;
   left: 50%;
+  letter-spacing: 0.5em;
+  margin-right: -0.5em;
   position: absolute;
   text-transform: uppercase;
   transform: translateX(-50%);
@@ -120,4 +113,12 @@
   display: inline-block;
   margin-right: 15px;
   vertical-align: middle;
+}
+
+
+// Responsive.
+@media (max-width: 1110px) {
+  .intro-music {
+    display: none;
+  }
 }
