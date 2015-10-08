@@ -88,11 +88,7 @@
   var soundcloudClient = 'client_id=78c6552c14b382e23be3bce2fc411a82';
 
   var soundcloudMusics = [
-    'https://soundcloud.com/officialratatat/08-nightclub-amnesia-1',
-    'https://soundcloud.com/officialratatat/04-abrasive-1',
-    'https://soundcloud.com/officialratatat/02-cream-on-chrome-1',
-    'https://soundcloud.com/officialratatat/track-01',
-    'https://soundcloud.com/officialratatat/track-02'
+    'https://soundcloud.com/theblackkeys/gold-on-the-ceiling'
   ];
 
   function soundcloudLoadMusic() {
@@ -226,15 +222,15 @@
   // Render.
   function render() {
     for (var i = 0; i < triangleLength; i++) {
-      TweenLite.to(triangle[i].scale, 0.1, {
+      TweenLite.to(triangle[i].scale, 0.05, {
         z: ((audioFrequency[i] / 256) * 2.5) + 0.01
       });
     }
 
     circle.rotation.z += 0.01;
 
-    TweenLite.to(camera.rotation, 1, {
-      x: mouseY / 20000,
+    TweenLite.to(camera.rotation, .05, {
+      x: mouseY / 10000,
       y: mouseX / 20000
     });
 
