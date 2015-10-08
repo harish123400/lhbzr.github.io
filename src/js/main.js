@@ -1,21 +1,24 @@
 (function() {
-  //Variables.
+  // Variables.
   var windowWidth = window.innerWidth;
   var windowHeight = window.innerHeight;
 
+
+
+  // Introduction.
   var intro = document.querySelector('.intro');
   var introCanvas = document.querySelector('.intro-canvas');
   var introLink = document.querySelectorAll('.intro-link');
 
 
 
-  //Functions.
+  // Functions.
   function get(url, callback) {
     request = new XMLHttpRequest();
 
     request.onreadystatechange = function() {
       if (request.readyState === 4 && request.status === 200) {
-          callback(request.responseText);
+        callback(request.responseText);
       }
     };
 
@@ -33,7 +36,7 @@
 
 
 
-  //Link.
+  // Link.
   var linkOverInterval, linkOutInterval;
 
   for (var i = 0; i < introLink.length; i++) {
@@ -51,7 +54,7 @@
       clearInterval(linkOverInterval);
 
       var link = this,
-          linkText = link.getAttribute('data-text');
+      linkText = link.getAttribute('data-text');
 
       var i = 0;
 
@@ -71,30 +74,23 @@
 
 
 
-  //Audio.
+  // Audio.
   var audio, audioContext, audioAnalyser, audioBuffer, audioSource, audioFrequency;
 
-  var request;
+  var soundcloudClient = 'client_id=78c6552c14b382e23be3bce2fc411a82';
 
-  var soundcloudClient = 'client_id=78c6552c14b382e23be3bce2fc411a82',
-      soundcloudPermalink = 'https://soundcloud.com/theblackkeys/gold-on-the-ceiling';
+  var soundcloudMusics = [
+    'https://soundcloud.com/ratatat/nightclub-amnesia',
+    'https://soundcloud.com/ratatat/abrasive',
+    'https://soundcloud.com/ratatat/cream-on-chrome',
+    'https://soundcloud.com/ratatat/one'
+  ];
 
-  function initAudio() {
-    audio = new Audio();
-    audio.crossOrigin = 'anonymous';
-
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-    audioSource = audioContext.createMediaElementSource(audio);
-    audioSource.connect(audioContext.destination);
-
-    audioAnalyser = audioContext.createAnalyser();
-    audioAnalyser.smoothingTimeConstant = 0.1;
-    audioAnalyser.fftSize = 512 * 4;
-    audioSource.connect(audioAnalyser);
+  function soundcloudLoadMusic() {
+    var soundcloudPermalink = soundcloudMusics[Math.floor(Math.random() * soundcloudMusics.length)];
 
     get(
-      'http://api.soundcloud.com/resolve.json?url=' + soundcloudPermalink + '&' + soundcloudClient,
+      '//api.soundcloud.com/resolve.json?url=' + soundcloudPermalink + '&' + soundcloudClient,
       function (response) {
         var information = JSON.parse(response);
 
@@ -110,21 +106,39 @@
         musicUser.innerHTML = information.user.username;
       }
     );
+  };
+
+  function initAudio() {
+    audio = new Audio();
+    audio.crossOrigin = 'anonymous';
+
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+    audioSource = audioContext.createMediaElementSource(audio);
+    audioSource.connect(audioContext.destination);
+
+    audioAnalyser = audioContext.createAnalyser();
+    audioAnalyser.smoothingTimeConstant = 0.1;
+    audioAnalyser.fftSize = 512 * 4;
+    audioSource.connect(audioAnalyser);
+
+    soundcloudLoadMusic();
 
     audioAnalyser.connect(audioContext.destination);
 
     audioFrequency = new Uint8Array(audioAnalyser.frequencyBinCount);
 
     audio.addEventListener('ended', function() {
-      audio.play();
+      soundcloudLoadMusic();
     });
   }
 
 
 
-  //Scene.
+  // Scene.
   var scene, camera, renderer, light, composer, effect;
-  var circle, triangle, triangleSleeve;
+
+  var particles, circle, triangle, triangleSleeve;
   var triangleLength = 100;
 
   function initScene() {
@@ -140,7 +154,7 @@
       canvas: introCanvas
     });
 
-    renderer.setClearColor(0xFFFFFF, 0)
+    renderer.setClearColor(0xFFFFFF, 0);
     renderer.setSize(windowWidth, windowHeight);
 
     light = new THREE.DirectionalLight(0xFFFFFF, 1);
@@ -168,7 +182,7 @@
 
       triangle[i].position.y = 100;
 
-      //Surrogate Rings. [http://inmosystems.com/demos/surrogateRings/source/]
+      // Surrogate Rings. [http://inmosystems.com/demos/surrogateRings/source/]
       triangleSleeve[i] = new THREE.Object3D();
       triangleSleeve[i].add(triangle[i]);
       triangleSleeve[i].rotation.z = i * (360 / triangleLength) * Math.PI / 180;
@@ -178,7 +192,7 @@
 
     scene.add(circle);
 
-    //Shaders. [http://threejs.org/examples/#webgl_postprocessing]
+    // Shaders. [http://threejs.org/examples/#webgl_postprocessing]
     composer = new THREE.EffectComposer(renderer);
     composer.addPass(new THREE.RenderPass(scene, camera));
 
@@ -196,7 +210,7 @@
 
 
 
-  //Render.
+  // Render.
   function render() {
     for (var i = 0; i < triangleLength; i++) {
       triangle[i].scale.z = ((audioFrequency[i] / 256) * 2.5) + 0.01;
@@ -215,8 +229,8 @@
 
 
 
-  //Resize.
-  function windowResize() {
+  // Resize.
+  window.addEventListener('resize', function() {
     windowHeight = window.innerHeight;
     windowWidth = window.innerWidth;
 
@@ -224,13 +238,11 @@
     camera.updateProjectionMatrix();
 
     renderer.setSize(windowWidth, windowHeight);
-  }
-
-  window.addEventListener('resize', windowResize);
+  });
 
 
 
-  //Init.
+  // Init.
   initAudio();
   initScene();
   render();
