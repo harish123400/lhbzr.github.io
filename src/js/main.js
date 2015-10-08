@@ -80,10 +80,11 @@
   var soundcloudClient = 'client_id=78c6552c14b382e23be3bce2fc411a82';
 
   var soundcloudMusics = [
-    'https://soundcloud.com/ratatat/nightclub-amnesia',
-    'https://soundcloud.com/ratatat/abrasive',
-    'https://soundcloud.com/ratatat/cream-on-chrome',
-    'https://soundcloud.com/ratatat/one'
+    'https://soundcloud.com/officialratatat/08-nightclub-amnesia-1',
+    'https://soundcloud.com/officialratatat/04-abrasive-1',
+    'https://soundcloud.com/officialratatat/02-cream-on-chrome-1',
+    'https://soundcloud.com/officialratatat/track-01',
+    'https://soundcloud.com/officialratatat/track-02'
   ];
 
   function soundcloudLoadMusic() {
