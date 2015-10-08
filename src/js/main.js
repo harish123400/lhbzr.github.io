@@ -1,7 +1,15 @@
 (function() {
   // Variables.
-  var windowWidth = window.innerWidth;
   var windowHeight = window.innerHeight;
+  var windowWidth = window.innerWidth;
+  var windowHalfHeight = windowHeight / 2;
+  var windowHalfWidth = windowWidth / 2;
+
+
+
+  //Mouse.
+  var mouseX = windowHalfWidth;
+  var mouseY = windowHalfHeight;
 
 
 
@@ -138,17 +146,12 @@
 
   // Scene.
   var scene, camera, renderer, light, composer, effect;
-
   var particles, circle, triangle, triangleSleeve;
   var triangleLength = 100;
 
   function initScene() {
+    // Setup.
     scene = new THREE.Scene();
-
-    camera = new THREE.PerspectiveCamera(75, windowWidth / windowHeight, 0.1, 1000);
-    camera.position.z = 250;
-
-    scene.add(camera);
 
     renderer = new THREE.WebGLRenderer({
       alpha: true,
@@ -158,6 +161,7 @@
     renderer.setClearColor(0xFFFFFF, 0);
     renderer.setSize(windowWidth, windowHeight);
 
+    // Lights.
     light = new THREE.DirectionalLight(0xFFFFFF, 1);
     light.position.set(1, 1, 1);
 
@@ -168,6 +172,7 @@
 
     scene.add(light);
 
+    // Circle.
     circle = new THREE.Object3D();
 
     triangle = [];
@@ -193,6 +198,13 @@
 
     scene.add(circle);
 
+    // Camera.
+    camera = new THREE.PerspectiveCamera(75, windowWidth / windowHeight, 0.1, 1000);
+    camera.position.z = 275;
+    camera.lookAt = circle;
+
+    scene.add(camera);
+
     // Shaders. [http://threejs.org/examples/#webgl_postprocessing]
     composer = new THREE.EffectComposer(renderer);
     composer.addPass(new THREE.RenderPass(scene, camera));
@@ -214,10 +226,17 @@
   // Render.
   function render() {
     for (var i = 0; i < triangleLength; i++) {
-      triangle[i].scale.z = ((audioFrequency[i] / 256) * 2.5) + 0.01;
+      TweenLite.to(triangle[i].scale, 0.1, {
+        z: ((audioFrequency[i] / 256) * 2.5) + 0.01
+      });
     }
 
     circle.rotation.z += 0.01;
+
+    TweenLite.to(camera.rotation, 1, {
+      x: mouseY / 20000,
+      y: mouseX / 20000
+    });
 
     renderer.render(scene, camera);
 
@@ -239,6 +258,15 @@
     camera.updateProjectionMatrix();
 
     renderer.setSize(windowWidth, windowHeight);
+  });
+
+
+
+  // Move.
+  window.addEventListener('mousemove', function(e) {
+    mouseX = e.clientX - windowHalfWidth;
+    mouseY = e.clientY - windowHalfHeight;
+    console.log('mouseX: ' + mouseX + ', mouseY: ' + mouseY);
   });
 
 
