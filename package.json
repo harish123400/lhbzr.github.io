@@ -7,6 +7,9 @@
     "type": "git",
     "url": "https://github.com/lhbzr/lhbzr.github.io.git"
   },
+  "scripts": {
+    "server": "http-server -p 9000"
+  },
   "author": {
     "name": "Luis Henrique Bizarro",
     "email": "luis@dotcore.com.br",
@@ -26,6 +29,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-postcss": "^0.6.0",
     "grunt-sass": "^1.0.0",
+    "http-server": "^0.8.5",
     "load-grunt-tasks": "^3.2.0",
     "time-grunt": "^1.2.1"
   }

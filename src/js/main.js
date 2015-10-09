@@ -222,14 +222,12 @@
   // Render.
   function render() {
     for (var i = 0; i < triangleLength; i++) {
-      TweenLite.to(triangle[i].scale, 0.05, {
-        z: ((audioFrequency[i] / 256) * 2.5) + 0.01
-      });
+      triangle[i].scale.z = ((audioFrequency[i] / 256) * 2.5) + 0.01;
     }
 
     circle.rotation.z += 0.01;
 
-    TweenLite.to(camera.rotation, .05, {
+    TweenLite.to(camera.rotation, .5, {
       x: mouseY / 10000,
       y: mouseX / 20000
     });
