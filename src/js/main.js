@@ -16,6 +16,7 @@
   // Introduction.
   var intro = document.querySelector('.intro');
   var introCanvas = document.querySelector('.intro-canvas');
+  var introCanvasOverlay = document.querySelector('.intro-canvas-overlay');
   var introLink = document.querySelectorAll('.intro-link');
 
 
@@ -55,7 +56,7 @@
         var linkValue = link.innerHTML.trim();
 
         link.innerHTML = replaceAt(linkValue, randomInt(0, linkValue.length - 1), String.fromCharCode(randomInt(65, 122)));
-      }, 50);
+      }, 10);
     });
 
     introLink[i].addEventListener('mouseout', function() {
@@ -76,7 +77,7 @@
         }
 
         i++;
-      }, 50);
+      }, 10);
     });
   }
 
@@ -143,7 +144,8 @@
 
 
   // Scene.
-  var scene, camera, renderer, light, composer, effect;
+  var scene, camera, renderer, light, composer;
+  var effectDotScreen, effectRGBShift;
   var particles, circle, triangle, triangleSleeve;
   var triangleLength = 100;
 
@@ -156,7 +158,7 @@
       canvas: introCanvas
     });
 
-    renderer.setClearColor(0xFFFFFF, 0);
+    //renderer.setClearColor(0x000000, 0);
     renderer.setSize(windowWidth, windowHeight);
 
     // Lights.
@@ -207,14 +209,14 @@
     composer = new THREE.EffectComposer(renderer);
     composer.addPass(new THREE.RenderPass(scene, camera));
 
-    effect = new THREE.ShaderPass(THREE.DotScreenShader);
-    effect.uniforms['scale'].value = 5;
-    composer.addPass(effect);
+    effectDotScreen = new THREE.ShaderPass(THREE.DotScreenShader);
+    effectDotScreen.uniforms['scale'].value = 5;
+    composer.addPass(effectDotScreen);
 
-    effect = new THREE.ShaderPass(THREE.RGBShiftShader);
-    effect.uniforms['amount'].value = 0.5;
-    effect.renderToScreen = true;
-    composer.addPass(effect);
+    effectRGBShift = new THREE.ShaderPass(THREE.RGBShiftShader);
+    effectRGBShift.uniforms['amount'].value = 0.05;
+    effectRGBShift.renderToScreen = true;
+    composer.addPass(effectRGBShift);
 
     renderer.render(scene, camera);
   }
@@ -223,22 +225,26 @@
 
   // Render.
   function render() {
+    // Circle.
     for (var i = 0; i < triangleLength; i++) {
       triangle[i].scale.z = ((audioFrequency[i] / 256) * 2.5) + 0.01;
     }
 
     circle.rotation.z += 0.01;
 
-    TweenLite.to(camera.rotation, 1, {
-      x: mouseY / 10000,
-      y: mouseX / 20000
+    // Effect.
+    TweenLite.to(effectRGBShift.uniforms['amount'], 1, {
+      value: mouseX / 2500
     });
 
-    renderer.render(scene, camera);
+    effectRGBShift.renderToScreen = true;
 
-    composer.render();
-
+    // Audio.
     audioAnalyser.getByteFrequencyData(audioFrequency);
+
+    // Rendering.
+    renderer.render(scene, camera);
+    composer.render();
 
     requestAnimationFrame(render);
   }

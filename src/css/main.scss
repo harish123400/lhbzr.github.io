@@ -1,27 +1,27 @@
-//Utils.
+// Utils.
 @import
   'utils/functions',
   'utils/helpers',
   'utils/mixins',
   'utils/variables';
 
-//Base.
+// Base.
 @import
   'base/classes',
   'base/reset',
   'base/typography';
 
-//Layout.
+// Layout.
 @import
   'layout/footer',
   'layout/header',
   'layout/navigation';
 
-//Components.
+// Components.
 @import
   'components/component';
 
-//Pages.
+// Pages.
 @import
   'pages/intro',
   'pages/about';

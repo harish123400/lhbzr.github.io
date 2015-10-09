@@ -9,7 +9,7 @@
 
   &:after {
     background: repeating-radial-gradient(center center, rgba(255, 255, 255, .5), rgba(0, 0, 0, .2) 1px, transparent 1px, transparent 100%);
-    background-size: 25px 25px;
+    background-size: 10px 10px;
     bottom: 0;
     content: '';
     display: block;
@@ -33,11 +33,12 @@
 
 
 // Letters.
-.intro-letters {
+.intro-title {
   color: #FFF;
-  font-size: 20px;
-  letter-spacing: 1.2em;
-  margin-right: -1.2em;
+  font-weight: bold;
+  font-size: 25px;
+  letter-spacing: 1em;
+  margin-right: -1em;
 }
 
 
@@ -47,7 +48,7 @@
   left: 0;
   position: absolute;
   top: 0;
-  z-index: -1;
+  z-index: -2;
 }
 
 
@@ -67,8 +68,8 @@
   color: #FFF;
   font-size: 10px;
   font-weight: bold;
-  letter-spacing: 1.2em;
-  margin-right: -1.2em;
+  letter-spacing: 0.5em;
+  margin-right: -0.5em;
   position: absolute;
   text-transform: uppercase;
   z-index: 2;
