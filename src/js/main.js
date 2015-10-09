@@ -88,7 +88,9 @@
   var soundcloudClient = 'client_id=78c6552c14b382e23be3bce2fc411a82';
 
   var soundcloudMusics = [
-    'https://soundcloud.com/theblackkeys/gold-on-the-ceiling'
+    'https://soundcloud.com/theblackkeys/gold-on-the-ceiling',
+    'https://soundcloud.com/theheavyyy/like-me',
+    'https://soundcloud.com/fueled_by_ramen/paramore-aint-it-fun'
   ];
 
   function soundcloudLoadMusic() {
@@ -227,7 +229,7 @@
 
     circle.rotation.z += 0.01;
 
-    TweenLite.to(camera.rotation, .5, {
+    TweenLite.to(camera.rotation, 1, {
       x: mouseY / 10000,
       y: mouseX / 20000
     });
@@ -260,7 +262,6 @@
   window.addEventListener('mousemove', function(e) {
     mouseX = e.clientX - windowHalfWidth;
     mouseY = e.clientY - windowHalfHeight;
-    console.log('mouseX: ' + mouseX + ', mouseY: ' + mouseY);
   });
 
 
