@@ -8,6 +8,7 @@
     "url": "https://github.com/lhbzr/lhbzr.github.io.git"
   },
   "scripts": {
+    "js": "browserify src/js/main.js > dist/js/main.min.js",
     "server": "http-server -p 9000"
   },
   "author": {
@@ -22,6 +23,7 @@
   "homepage": "https://github.com/lhbzr/lhbzr.github.io",
   "devDependencies": {
     "autoprefixer": "^6.0.2",
+    "browserify": "^11.2.0",
     "grunt": "^0.4.5",
     "grunt-contrib-htmlmin": "^0.4.0",
     "grunt-contrib-imagemin": "^0.9.4",
