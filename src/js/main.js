@@ -144,8 +144,7 @@
 
 
   // Scene.
-  var scene, camera, renderer, light, composer;
-  var effectDotScreen, effectRGBShift;
+  var scene, camera, renderer, light, composer, effect;
   var particles, circle, triangle, triangleSleeve;
   var triangleLength = 100;
 
@@ -182,7 +181,8 @@
       triangle[i] = new THREE.Mesh(
         new THREE.TetrahedronGeometry(50, 0),
         new THREE.MeshPhongMaterial({
-          color: 0xFFFFFF
+          color: 0xFFFFFF,
+          wireframe: true
         })
       );
 
@@ -209,14 +209,10 @@
     composer = new THREE.EffectComposer(renderer);
     composer.addPass(new THREE.RenderPass(scene, camera));
 
-    effectDotScreen = new THREE.ShaderPass(THREE.DotScreenShader);
-    effectDotScreen.uniforms['scale'].value = 5;
-    composer.addPass(effectDotScreen);
-
-    effectRGBShift = new THREE.ShaderPass(THREE.RGBShiftShader);
-    effectRGBShift.uniforms['amount'].value = 0.05;
-    effectRGBShift.renderToScreen = true;
-    composer.addPass(effectRGBShift);
+    effect = new THREE.ShaderPass(THREE.RGBShiftShader);
+    effect.uniforms['amount'].value = 0.05;
+    effect.renderToScreen = true;
+    composer.addPass(effect);
 
     renderer.render(scene, camera);
   }
@@ -227,17 +223,28 @@
   function render() {
     // Circle.
     for (var i = 0; i < triangleLength; i++) {
-      triangle[i].scale.z = ((audioFrequency[i] / 256) * 2.5) + 0.01;
+      var value = ((audioFrequency[i] / 256) * 2.5) + 0.01;
+
+      triangle[i].scale.z = value;
+
+      if (clicked) {
+        triangle[i].scale.x = value;
+        triangle[i].scale.y = value;
+      }
     }
 
     circle.rotation.z += 0.01;
 
     // Effect.
-    TweenLite.to(effectRGBShift.uniforms['amount'], 1, {
-      value: mouseX / 2500
-    });
-
-    effectRGBShift.renderToScreen = true;
+    if (!clicked) {
+      TweenLite.to(effect.uniforms['amount'], 1, {
+        value: mouseX / 2500
+      });
+    } else {
+      TweenLite.to(effect.uniforms['amount'], 1, {
+        value: 0.005
+      });
+    }
 
     // Audio.
     audioAnalyser.getByteFrequencyData(audioFrequency);
@@ -268,6 +275,54 @@
   window.addEventListener('mousemove', function(e) {
     mouseX = e.clientX - windowHalfWidth;
     mouseY = e.clientY - windowHalfHeight;
+  });
+
+
+  // Down.
+  var clicked = false;
+
+  window.addEventListener('click', function() {
+    if (!clicked) {
+      for (var i = 0; i < triangleLength; i++) {
+        TweenLite.to(triangle[i].rotation, 1, {
+           x: randomInt(0, Math.PI),
+           y: randomInt(0, Math.PI),
+           z: randomInt(0, Math.PI)
+        });
+
+        TweenLite.to(triangle[i].position, 1, {
+           x: "+= " + randomInt(0, 1000),
+           y: "+= " + randomInt(0, 1000),
+           z: "+= " + randomInt(-500, -250)
+        });
+      }
+
+      clicked = true;
+    } else {
+      for (var i = 0; i < triangleLength; i++) {
+        TweenLite.to(triangle[i].scale, 1, {
+          x: 1,
+          y: 1,
+          z: 1
+        });
+
+        TweenLite.to(triangle[i].rotation, 1, {
+          x: 0,
+          y: 0,
+          z: 0
+        });
+
+        TweenLite.to(triangle[i].position, 1, {
+          x: 0,
+          y: 100,
+          z: 0
+        });
+
+        triangle[i].scale.z = ((audioFrequency[i] / 256) * 2.5) + 0.01;
+      }
+
+      clicked = false;
+    }
   });
 
 
