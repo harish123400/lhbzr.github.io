@@ -145,8 +145,16 @@
 
   // Scene.
   var scene, camera, renderer, light, composer, effect;
-  var particles, circle, triangle, triangleSleeve;
-  var triangleLength = 100;
+  var particles, circle, geometry, geometrySleeve, geometryListInt;
+
+  var geometryList = [
+    new THREE.TetrahedronGeometry(50, 0),
+    new THREE.IcosahedronGeometry(40, 0),
+    new THREE.OctahedronGeometry(40, 0),
+    new THREE.DodecahedronGeometry(40, 0)
+  ];
+
+  var geometryLength = 100;
 
   function initScene() {
     // Setup.
@@ -157,7 +165,6 @@
       canvas: introCanvas
     });
 
-    //renderer.setClearColor(0x000000, 0);
     renderer.setSize(windowWidth, windowHeight);
 
     // Lights.
@@ -174,26 +181,27 @@
     // Circle.
     circle = new THREE.Object3D();
 
-    triangle = [];
-    triangleSleeve = [];
+    geometry = [];
+    geometrySleeve = [];
+    geometryListInt = randomInt(0, geometryList.length - 1);
 
-    for (var i = 0; i < triangleLength; i++) {
-      triangle[i] = new THREE.Mesh(
-        new THREE.TetrahedronGeometry(50, 0),
+    for (var i = 0; i < geometryLength; i++) {
+      geometry[i] = new THREE.Mesh(
+        geometryList[geometryListInt],
         new THREE.MeshPhongMaterial({
           color: 0xFFFFFF,
           wireframe: true
         })
       );
 
-      triangle[i].position.y = 100;
+      geometry[i].position.y = 100;
 
       // Surrogate Rings. [http://inmosystems.com/demos/surrogateRings/source/]
-      triangleSleeve[i] = new THREE.Object3D();
-      triangleSleeve[i].add(triangle[i]);
-      triangleSleeve[i].rotation.z = i * (360 / triangleLength) * Math.PI / 180;
+      geometrySleeve[i] = new THREE.Object3D();
+      geometrySleeve[i].add(geometry[i]);
+      geometrySleeve[i].rotation.z = i * (360 / geometryLength) * Math.PI / 180;
 
-      circle.add(triangleSleeve[i]);
+      circle.add(geometrySleeve[i]);
     }
 
     scene.add(circle);
@@ -222,14 +230,14 @@
   // Render.
   function render() {
     // Circle.
-    for (var i = 0; i < triangleLength; i++) {
+    for (var i = 0; i < geometryLength; i++) {
       var value = ((audioFrequency[i] / 256) * 2.5) + 0.01;
 
-      triangle[i].scale.z = value;
+      geometry[i].scale.z = value;
 
       if (clicked) {
-        triangle[i].scale.x = value;
-        triangle[i].scale.y = value;
+        geometry[i].scale.x = value;
+        geometry[i].scale.y = value;
       }
     }
 
@@ -283,14 +291,14 @@
 
   window.addEventListener('click', function() {
     if (!clicked) {
-      for (var i = 0; i < triangleLength; i++) {
-        TweenLite.to(triangle[i].rotation, 1, {
+      for (var i = 0; i < geometryLength; i++) {
+        TweenLite.to(geometry[i].rotation, 1, {
            x: randomInt(0, Math.PI),
            y: randomInt(0, Math.PI),
            z: randomInt(0, Math.PI)
         });
 
-        TweenLite.to(triangle[i].position, 1, {
+        TweenLite.to(geometry[i].position, 1, {
            x: "+= " + randomInt(0, 1000),
            y: "+= " + randomInt(0, 1000),
            z: "+= " + randomInt(-500, -250)
@@ -299,26 +307,26 @@
 
       clicked = true;
     } else {
-      for (var i = 0; i < triangleLength; i++) {
-        TweenLite.to(triangle[i].scale, 1, {
+      for (var i = 0; i < geometryLength; i++) {
+        TweenLite.to(geometry[i].scale, 1, {
           x: 1,
           y: 1,
           z: 1
         });
 
-        TweenLite.to(triangle[i].rotation, 1, {
+        TweenLite.to(geometry[i].rotation, 1, {
           x: 0,
           y: 0,
           z: 0
         });
 
-        TweenLite.to(triangle[i].position, 1, {
+        TweenLite.to(geometry[i].position, 1, {
           x: 0,
           y: 100,
           z: 0
         });
 
-        triangle[i].scale.z = ((audioFrequency[i] / 256) * 2.5) + 0.01;
+        geometry[i].scale.z = ((audioFrequency[i] / 256) * 2.5) + 0.01;
       }
 
       clicked = false;
