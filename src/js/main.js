@@ -69,20 +69,20 @@
       linkOverInterval,
       linkOutInterval;
 
+  Draggable.create(link, {
+    bounds: document.querySelector('body'),
+    edgeResistance: 1,
+    type: 'x, y',
+    onClick: function() {
+      location.href = this.target.getAttribute('data-href');
+    }
+  });
+
   for (var i = 0; i < link.length; i++) {
     var linkCurrent = link[i];
 
     linkCurrent.style.top = randomInt(100, windowHeight - 175) + "px";
     linkCurrent.style.left = randomInt(0, windowWidth - 190) + "px";
-
-    Draggable.create(linkCurrent, {
-      bounds: document.querySelector('body'),
-      edgeResistance: 1,
-      type: 'x, y',
-      onClick: function() {
-        location.href = linkCurrent.getAttribute('data-href');
-      }
-    });
 
     linkCurrent.addEventListener('mouseover', function() {
       var link = this;
@@ -121,13 +121,14 @@
         }
 
         i++;
-
-        // Hover.
-        TweenLite.to(link, 0.4, {
-          background: 'rgba(255, 255, 255, 0)',
-          color: 'rgb(255, 255, 255)'
-        });
       }, 10);
+
+
+      // Hover.
+      TweenLite.to(link, 0.4, {
+        background: 'rgba(255, 255, 255, 0)',
+        color: 'rgb(255, 255, 255)'
+      });
     });
   }
 
