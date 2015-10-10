@@ -81,6 +81,11 @@
     linkCurrent.style.top = randomInt(100, windowHeight - 175) + "px";
     linkCurrent.style.left = randomInt(0, windowWidth - 190) + "px";
 
+    linkCurrent.addEventListener('dblclick', function() {
+      alert();
+      location.href = this.getAttribute('data-href');
+    });
+
     linkCurrent.addEventListener('mouseover', function() {
       var link = this;
 
