@@ -69,20 +69,19 @@
       linkOverInterval,
       linkOutInterval;
 
-  Draggable.create(link, {
-    bounds: document.querySelector('body'),
-    edgeResistance: 1,
-    type: 'x, y'
-  });
-
   for (var i = 0; i < link.length; i++) {
     var linkCurrent = link[i];
 
     linkCurrent.style.top = randomInt(100, windowHeight - 175) + "px";
     linkCurrent.style.left = randomInt(0, windowWidth - 190) + "px";
 
-    linkCurrent.addEventListener('dblclick', function() {
-      location.href = this.getAttribute('data-href');
+    Draggable.create(linkCurrent, {
+      bounds: document.querySelector('body'),
+      edgeResistance: 1,
+      type: 'x, y',
+      onClick: function() {
+        location.href = linkCurrent.getAttribute('data-href');
+      }
     });
 
     linkCurrent.addEventListener('mouseover', function() {
