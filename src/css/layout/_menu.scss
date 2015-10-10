@@ -20,3 +20,9 @@
   text-transform: uppercase;
   z-index: 3;
 }
+
+@media (max-width: 800px) {
+  .menu {
+    display: none;
+  }
+}
