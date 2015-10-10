@@ -1,0 +1,23 @@
+.about {
+  background: #FFF;
+  border: 1px solid #FFF;
+  color: #000;
+  height: 300px;
+  padding: 25px 35px;
+  position: absolute;
+  width: 300px;
+  z-index: 2;
+}
+
+.about-title {
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.about-desc {
+  font-size: 12px;
+  letter-spacing: 1px;
+  line-height: 24px;
+}

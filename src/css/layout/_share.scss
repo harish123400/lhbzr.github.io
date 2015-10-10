@@ -1,0 +1,29 @@
+.share {
+  bottom: 12px;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+.share-list {
+  margin: 0 -10px;
+  padding: 0;
+}
+
+.share-item {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.share-link {
+  display: inline-block;
+  fill: #FFF;
+  vertical-align: middle;
+}
+
+.share-icon {
+  height: 25px;
+  vertical-align: middle;
+  width: 25px;
+}

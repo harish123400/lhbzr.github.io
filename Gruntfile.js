@@ -24,6 +24,7 @@ module.exports = function (grunt) {
   grunt.registerTask('css', ['sass:main', 'postcss:main']);
   grunt.registerTask('js', ['uglify:main']);
   grunt.registerTask('img', ['imagemin:main']);
+  grunt.registerTask('svg', ['svgstore:main']);
   grunt.registerTask('w', ['watch']);
   grunt.registerTask('build', ['css', 'js', 'img', 'html']);
 };

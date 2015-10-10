@@ -1,33 +1,25 @@
 (function() {
+  'use strict';
+
   // Variables.
-  var windowHeight = window.innerHeight;
-  var windowWidth = window.innerWidth;
-  var windowHalfHeight = windowHeight / 2;
-  var windowHalfWidth = windowWidth / 2;
+  var windowHeight = window.innerHeight,
+      windowWidth = window.innerWidth;
 
+  var windowHalfHeight = windowHeight / 2,
+      windowHalfWidth = windowWidth / 2;
 
-
-  //Mouse.
-  var mouseX = windowHalfWidth;
-  var mouseY = windowHalfHeight;
-
-
-
-  // Introduction.
-  var intro = document.querySelector('.intro');
-  var introCanvas = document.querySelector('.intro-canvas');
-  var introCanvasOverlay = document.querySelector('.intro-canvas-overlay');
-  var introLink = document.querySelectorAll('.intro-link');
+  var mouseX = windowHalfWidth,
+      mouseY = windowHalfHeight;
 
 
 
   // Functions.
   function get(url, callback) {
-    request = new XMLHttpRequest();
+    var request = new XMLHttpRequest();
 
     request.onreadystatechange = function() {
       if (request.readyState === 4 && request.status === 200) {
-        callback(request.responseText);
+        callback(request);
       }
     };
 
@@ -45,25 +37,74 @@
 
 
 
-  // Link.
-  var linkOverInterval, linkOutInterval;
+  // About.
+  var about = document.querySelector('.about');
 
-  for (var i = 0; i < introLink.length; i++) {
-    introLink[i].addEventListener('mouseover', function() {
+  about.addEventListener('mouseover', function() {
+    TweenLite.to(about, 0.4, {
+      background: 'rgba(255, 255, 255, 0)',
+      color: 'rgb(255, 255, 255)'
+    });
+  });
+
+  about.addEventListener('mouseout', function() {
+    TweenLite.to(about, 0.4, {
+      background: 'rgba(255, 255, 255, 1)',
+      color: 'rgb(0, 0, 0)'
+    });
+  });
+
+  about.style.top = randomInt(100, windowHeight - 400) + "px";
+  about.style.left = randomInt(0, windowWidth - 500) + "px";
+
+  Draggable.create(about, {
+    bounds: document.querySelector('body'),
+    type: 'x, y'
+  });
+
+
+
+  // Link.
+  var link = document.querySelectorAll('.menu-link'),
+      linkOverInterval,
+      linkOutInterval;
+
+  Draggable.create(link, {
+    bounds: document.querySelector('body'),
+    edgeResistance: 1,
+    type: 'x, y'
+  });
+
+  for (var i = 0; i < link.length; i++) {
+    var linkCurrent = link[i];
+
+    linkCurrent.style.top = randomInt(100, windowHeight - 175) + "px";
+    linkCurrent.style.left = randomInt(0, windowWidth - 190) + "px";
+
+    linkCurrent.addEventListener('mouseover', function() {
       var link = this;
 
+      // Interval.
       linkOverInterval = setInterval(function() {
         var linkValue = link.innerHTML.trim();
 
         link.innerHTML = replaceAt(linkValue, randomInt(0, linkValue.length - 1), String.fromCharCode(randomInt(65, 122)));
       }, 10);
+
+      // Hover.
+      TweenLite.to(link, 0.4, {
+        background: 'rgba(255, 255, 255, 1)',
+        color: 'rgb(0, 0, 0)'
+      });
     });
 
-    introLink[i].addEventListener('mouseout', function() {
+    linkCurrent.addEventListener('mouseout', function() {
+      var link = this;
+
+      // Interval.
       clearInterval(linkOverInterval);
 
-      var link = this,
-      linkText = link.getAttribute('data-text');
+      var linkText = link.getAttribute('data-text');
 
       var i = 0;
 
@@ -77,6 +118,12 @@
         }
 
         i++;
+
+        // Hover.
+        TweenLite.to(link, 0.4, {
+          background: 'rgba(255, 255, 255, 0)',
+          color: 'rgb(255, 255, 255)'
+        });
       }, 10);
     });
   }
@@ -100,16 +147,16 @@
     get(
       '//api.soundcloud.com/resolve.json?url=' + soundcloudPermalink + '&' + soundcloudClient,
       function (response) {
-        var information = JSON.parse(response);
+        var information = JSON.parse(response.responseText);
 
         audio.src = information.stream_url + '?' + soundcloudClient;
         audio.play();
 
-        var musicTitle = document.querySelector('.intro-music-title');
+        var musicTitle = document.querySelector('.music-title');
         musicTitle.setAttribute('href', information.permalink_url);
         musicTitle.innerHTML = information.title;
 
-        var musicUser = document.querySelector('.intro-music-user');
+        var musicUser = document.querySelector('.music-user');
         musicUser.setAttribute('href', information.user.permalink_url);
         musicUser.innerHTML = information.user.username;
       }
@@ -144,14 +191,15 @@
 
 
   // Scene.
+  var canvas = document.querySelector('.canvas');
+
   var scene, camera, renderer, light, composer, effect;
   var particles, circle, geometry, geometrySleeve, geometryListInt;
 
   var geometryList = [
     new THREE.TetrahedronGeometry(50, 0),
     new THREE.IcosahedronGeometry(40, 0),
-    new THREE.OctahedronGeometry(40, 0),
-    new THREE.DodecahedronGeometry(40, 0)
+    new THREE.OctahedronGeometry(40, 0)
   ];
 
   var geometryLength = 100;
@@ -162,7 +210,7 @@
 
     renderer = new THREE.WebGLRenderer({
       alpha: true,
-      canvas: introCanvas
+      canvas: canvas
     });
 
     renderer.setSize(windowWidth, windowHeight);
@@ -335,8 +383,27 @@
 
 
 
+  // Icons.
+  function initIcons() {
+    get(
+      'dist/img/sprites/sprites.svg',
+      function (response) {
+        var wrapper = document.createElement('div');
+        var responseText = response.responseText;
+
+        wrapper.style.display = 'none';
+        wrapper.innerHTML = responseText.replace(/\n/g, " ");
+
+        document.body.insertBefore(wrapper, document.body.childNodes[0]);
+      }
+    );
+  }
+
+
+
   // Init.
   initAudio();
   initScene();
+  initIcons();
   render();
 })();

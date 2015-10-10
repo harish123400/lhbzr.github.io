@@ -16,65 +16,122 @@
   <!-- Viewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="dist/img/favicon.ico" />
+
   <!-- Style -->
   <link rel="stylesheet" href="dist/css/main.css">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="https://www.lhbzr.com/">
+  <meta property="og:title" content="LHBZR">
+  <meta property="og:image" content="dist/img/share/facebook.jpg">
+  <meta property="og:description" content="Front End Developer based in São Paulo, Brazil.">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@lhbzr">
+  <meta name="twitter:title" content="LHBZR">
+  <meta name="twitter:description" content="Front End Developer based in São Paulo, Brazil.">
+  <meta name="twitter:image" content="dist/img/share/twitter.jpg">
 </head>
 <body>
-  <section class="intro">
-    <nav class="intro-menu">
-      <ul class="intro-list">
-        <li class="intro-item">
-          <a href="http://about.me/lhbzr/" target="_blank" class="intro-link intro-link-about" data-text="About">
-            About
-          </a>
-        </li>
-        <li class="intro-item">
-          <a href="http://www.dotcore.com.br/" target="_blank" class="intro-link intro-link-blog" data-text="Blog">
-            Blog
-          </a>
-        </li>
-        <li class="intro-item">
-          <a href="http://linkedin.com/in/lhbzr/" target="_blank" class="intro-link intro-link-resume" data-text="Résumé">
-            Résumé
-          </a>
-        </li>
-        <li class="intro-item">
-          <a href="mailto:luis@dotcore.com.br" class="intro-link intro-link-contact" data-text="Contact">
-            Contact
-          </a>
-        </li>
-      </ul>
-    </nav>
+  <!-- Canvas -->
+  <canvas class="canvas">
+    Your browser doesn't support the &lt;canvas&gt; element.
+  </canvas>
 
-    <div class="intro-wrapper">
-      <div class="intro-title">
-        LHBZR
-      </div>
-    </div>
 
-    <div class="intro-music">
-      <a href="https://soundcloud.com/" target="_blank" class="intro-music-soundcloud">
-        <img src="https://developers.soundcloud.com/assets/logo_white.png">
-      </a>
+  <!-- About -->
+  <section class="about">
+    <h1 class="about-title">
+      LBHZR.
+    </h1>
 
-      <a href="#" target="_blank" class="intro-music-title">Title</a> by <a href="#" target="_blank" class="intro-music-user">User</a>.
-    </div>
-
-    <canvas class="intro-canvas"></canvas>
+    <p class="about-desc">
+      I'm a <strong>Front-End Developer</strong> at FIAP,
+      a bachelor's degree student in <strong>Information Systems</strong>
+      and also a <strong>Volunteer Editor</strong> of the Tumblr's #Gaming tag
+      based in <strong>São Paulo, Brazil</strong>.
+    </p>
   </section>
+
+  <!-- Menu -->
+  <nav class="menu">
+    <span class="menu-link" data-href="https://www.dotcore.com.br/" data-text="Tumblr">
+      Tumblr
+    </span>
+
+    <span class="menu-link" data-href="https://www.linkedin.com/in/lhbzr/" data-text="LinkedIn">
+      LinkedIn
+    </span>
+
+    <span class="menu-link" data-href="https://www.github.com/lhbzr/" data-text="Github">
+      Github
+    </span>
+
+    <span class="menu-link menu-link-codepen" data-href="https://www.codepen.io/lhbzr/" data-text="CodePen">
+      CodePen
+    </span>
+  </nav>
+
+
+
+  <!-- Music -->
+  <div class="music">
+    <a href="https://soundcloud.com/" target="_blank" class="music-soundcloud">
+      <img src="https://developers.soundcloud.com/assets/logo_white.png">
+    </a>
+
+    <a href="#" target="_blank" class="music-title">Music</a> by <a href="#" target="_blank" class="music-user">User</a>.
+  </div>
+
+
+
+  <!-- Share -->
+  <div class="share">
+    <ul class="share-list">
+      <li class="share-item">
+        <a href="https://www.facebook.com/sharer.php?u=https://www.lhbzr.com/&t=LHBZR" target="_blank" class="share-link">
+          <svg viewBox="0 0 512 512" class="share-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#sprite-facebook"></use></svg>
+        </a>
+      </li>
+      <li class="share-item">
+        <a href="https://twitter.com/share?url=https://www.lhbzr.com/&text=LHBZR" target="_blank" class="share-link">
+          <svg viewBox="0 0 512 512" class="share-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#sprite-twitter"></use></svg>
+        </a>
+      </li>
+      <li class="share-item">
+        <a href="https://plus.google.com/share?url=https://www.lhbzr.com/" target="_blank" class="share-link">
+          <svg viewBox="0 0 512 512" class="share-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#sprite-google"></use></svg>
+        </a>
+      </li>
+      <li class="share-item">
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.lhbzr.com/&title=LHBZR" target="_blank" class="share-link">
+          <svg viewBox="0 0 512 512" class="share-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#sprite-linkedin"></use></svg>
+        </a>
+      </li>
+      <li class="share-item">
+        <a href="https://www.tumblr.com/share/link?url=https://www.lhbzr.com/" target="_blank" class="share-link">
+          <svg viewBox="0 0 512 512" class="share-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#sprite-tumblr"></use></svg>
+        </a>
+      </li>
+    </ul>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r72/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/utils/Draggable.min.js"></script>
   <script src="dist/js/util.min.js"></script>
   <script src="dist/js/main.min.js"></script>
   <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-68362223-1', 'auto');
-    ga('send', 'pageview');
+  ga('create', 'UA-68362223-1', 'auto');
+  ga('send', 'pageview');
   </script>
 </body>
 </html>

@@ -1,5 +1,9 @@
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 
+*, *:after, *:before {
+  box-sizing: inherit;
+}
+
 /**
  * 1. Set default font family to sans-serif.
  * 2. Prevent iOS text size adjust after orientation change, without disabling
@@ -7,6 +11,7 @@
  */
 
 html {
+  box-sizing: border-box;
   font-family: sans-serif; /* 1 */
   -ms-text-size-adjust: 100%; /* 2 */
   -webkit-text-size-adjust: 100%; /* 2 */
@@ -18,10 +23,23 @@ html {
  */
 
 body {
-  font: 16px 'Hack', 'sans-serif'; // ! Another font.
+  font: 16px 'Hack', 'sans-serif';
   height: 100%;
   margin: 0;
   user-select: none;
+
+  &:after {
+    background: repeating-radial-gradient(center center, rgba(255, 255, 255, .5), rgba(0, 0, 0, .2) 1px, transparent 1px, transparent 100%);
+    background-size: 30px 30px;
+    bottom: 0;
+    content: '';
+    display: block;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+  }
 }
 
 /* HTML5 display definitions
@@ -92,8 +110,8 @@ template {
 
 a {
   background-color: transparent;
-  color: inherit; // ! Default color.
-  text-decoration: none; // ! Remove decoration.
+  color: inherit;
+  text-decoration: none;
 }
 
 /**

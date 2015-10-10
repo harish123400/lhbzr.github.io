@@ -1,0 +1,25 @@
+.music {
+  color: #FFF;
+  font-size: 10px;
+  font-weight: bold;
+  left: 50%;
+  letter-spacing: 0.5em;
+  margin-right: -0.5em;
+  position: absolute;
+  top: 20px;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.music-soundcloud {
+  display: inline-block;
+  margin-right: 15px;
+  vertical-align: middle;
+}
+
+@media (max-width: 1110px) {
+  .music {
+    display: none;
+  }
+}
