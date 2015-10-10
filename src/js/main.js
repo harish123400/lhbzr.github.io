@@ -140,9 +140,20 @@
   var soundcloudClient = 'client_id=78c6552c14b382e23be3bce2fc411a82';
 
   var soundcloudMusics = [
-    'https://soundcloud.com/theblackkeys/gold-on-the-ceiling',
-    'https://soundcloud.com/theheavyyy/like-me',
-    'https://soundcloud.com/fueled_by_ramen/paramore-aint-it-fun'
+    'https://soundcloud.com/okgo/i-wont-let-you-down',
+    'https://soundcloud.com/fueled_by_ramen/migraine',
+    'https://soundcloud.com/portugaltheman/atomic-man',
+    'https://soundcloud.com/upcastmusic/echosmith-cool-kids',
+    'https://soundcloud.com/penguin-prison/show-me-the-way',
+    'https://soundcloud.com/penguin-prison/never-gets-old-1',
+    'https://soundcloud.com/rac/cheap-sunglasses-ft-matthew-koma',
+    'https://soundcloud.com/atlanticrecords/youre-gonna-love-this-1',
+    'https://soundcloud.com/fueled_by_ramen/paramore-aint-it-fun',
+    'https://soundcloud.com/panicatthedisco/the-ballad-of-mona-lisa',
+    'https://soundcloud.com/panicatthedisco/panic-at-the-disco-girlsgirlsboys',
+    'https://soundcloud.com/panicatthedisco/panic-at-the-disco-hallelujah',
+    'https://soundcloud.com/the-ting-tings/do-it-again-1',
+    'https://soundcloud.com/the-ting-tings/wrong-club'
   ];
 
   function soundcloudLoadMusic() {
@@ -152,6 +163,8 @@
       '//api.soundcloud.com/resolve.json?url=' + soundcloudPermalink + '&' + soundcloudClient,
       function (response) {
         var information = JSON.parse(response.responseText);
+
+        console.log(information);
 
         audio.src = information.stream_url + '?' + soundcloudClient;
         audio.play();
@@ -406,7 +419,10 @@
 
 
   // Init.
-  initAudio();
+  if (window.AudioContext || window.webkitAudioContext) {
+    initAudio();
+  }
+
   initScene();
   initIcons();
   render();
