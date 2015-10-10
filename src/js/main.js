@@ -82,7 +82,6 @@
     linkCurrent.style.left = randomInt(0, windowWidth - 190) + "px";
 
     linkCurrent.addEventListener('dblclick', function() {
-      alert();
       location.href = this.getAttribute('data-href');
     });
 
