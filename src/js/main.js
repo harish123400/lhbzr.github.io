@@ -1,19 +1,21 @@
 (function() {
   'use strict';
 
+  //
   // Variables.
-  var windowHeight = window.innerHeight,
-      windowWidth = window.innerWidth;
-
-  var windowHalfHeight = windowHeight / 2,
-      windowHalfWidth = windowWidth / 2;
-
-  var mouseX = windowHalfWidth,
-      mouseY = windowHalfHeight;
-
+  //
+  var windowHeight = window.innerHeight;
+  var windowWidth = window.innerWidth;
+  var windowHalfHeight = windowHeight / 2;
+  var windowHalfWidth = windowWidth / 2;
+  var mouseX = windowHalfWidth;
+  var mouseY = windowHalfHeight;
 
 
+
+  //
   // Functions.
+  //
   function get(url, callback) {
     var request = new XMLHttpRequest();
 
@@ -37,38 +39,46 @@
 
 
 
+  //
   // About.
+  //
   var about = document.querySelector('.about');
 
+  // Positions.
+  about.style.top = randomInt(0, windowHeight - about.offsetHeight) + "px";
+  about.style.left = randomInt(0, windowWidth - about.offsetWidth) + "px";
+
+  // Draggable.
+  Draggable.create(about, {
+    bounds: document.querySelector('body'),
+    type: 'x, y'
+  });
+
+  // Hover.
   about.addEventListener('mouseover', function() {
-    TweenLite.to(about, 0.4, {
+    TweenLite.to(about, .4, {
       background: 'rgba(255, 255, 255, 0)',
       color: 'rgb(255, 255, 255)'
     });
   });
 
   about.addEventListener('mouseout', function() {
-    TweenLite.to(about, 0.4, {
+    TweenLite.to(about, .4, {
       background: 'rgba(255, 255, 255, 1)',
       color: 'rgb(0, 0, 0)'
     });
   });
 
-  about.style.top = randomInt(100, windowHeight - 400) + "px";
-  about.style.left = randomInt(0, windowWidth - 500) + "px";
-
-  Draggable.create(about, {
-    bounds: document.querySelector('body'),
-    type: 'x, y'
-  });
 
 
-
+  //
   // Link.
-  var link = document.querySelectorAll('.menu-link'),
-      linkOverInterval,
-      linkOutInterval;
+  //
+  var link = document.querySelectorAll('.menu-link');
+  var linkOverInterval;
+  var linkOutInterval;
 
+  // Draggable.
   Draggable.create(link, {
     bounds: document.querySelector('body'),
     edgeResistance: 1,
@@ -78,37 +88,33 @@
     }
   });
 
+  // Hover.
   for (var i = 0; i < link.length; i++) {
     var linkCurrent = link[i];
 
-    linkCurrent.style.top = randomInt(100, windowHeight - 175) + "px";
-    linkCurrent.style.left = randomInt(0, windowWidth - 190) + "px";
+    linkCurrent.style.top = randomInt(0, windowHeight - linkCurrent.offsetHeight) + "px";
+    linkCurrent.style.left = randomInt(0, windowWidth - linkCurrent.offsetWidth) + "px";
 
     linkCurrent.addEventListener('mouseover', function() {
       var link = this;
 
-      // Interval.
       linkOverInterval = setInterval(function() {
         var linkValue = link.innerHTML.trim();
 
         link.innerHTML = replaceAt(linkValue, randomInt(0, linkValue.length - 1), String.fromCharCode(randomInt(65, 122)));
       }, 10);
 
-      // Hover.
-      TweenLite.to(link, 0.4, {
+      TweenLite.to(link, .4, {
         background: 'rgba(255, 255, 255, 1)',
         color: 'rgb(0, 0, 0)'
       });
     });
 
     linkCurrent.addEventListener('mouseout', function() {
-      var link = this;
-
-      // Interval.
       clearInterval(linkOverInterval);
 
+      var link = this;
       var linkText = link.getAttribute('data-text');
-
       var i = 0;
 
       var linkOutInterval = setInterval(function() {
@@ -125,7 +131,7 @@
 
 
       // Hover.
-      TweenLite.to(link, 0.4, {
+      TweenLite.to(link, .4, {
         background: 'rgba(255, 255, 255, 0)',
         color: 'rgb(255, 255, 255)'
       });
@@ -134,19 +140,34 @@
 
 
 
+  //
   // Audio.
+  //
   var audio, audioContext, audioAnalyser, audioBuffer, audioSource, audioFrequency;
-
   var soundcloudClient = 'client_id=78c6552c14b382e23be3bce2fc411a82';
-
   var soundcloudMusics = [
+    'https://soundcloud.com/penguin-prison/never-gets-old-1',
+    'https://soundcloud.com/thewallaband/101a',
+    'https://soundcloud.com/pop/iris-ill-wait-for-you',
+    'https://soundcloud.com/upcastmusic/echosmith-cool-kids',
+    'https://soundcloud.com/chvrches/chvrches-get-away',
+    'https://soundcloud.com/rac/cheap-sunglasses-ft-matthew-koma',
+    'https://soundcloud.com/greatgoodfineok/not-going-home',
+    'https://soundcloud.com/polyvinyl-records/starfucker-while-im-alive',
+    'https://soundcloud.com/fitzandthetantrums/the-walker',
+    'https://soundcloud.com/recordrecords/of-monsters-and-men-little-2',
+    'https://soundcloud.com/atlas-genius/trojans',
+    'https://soundcloud.com/wearelisbon/khaleesi',
+    'https://soundcloud.com/pnau/embrace-feat-ladyhawke',
+    'https://soundcloud.com/officialratatat/02-cream-on-chrome-1',
+    'https://soundcloud.com/officialratatat/08-nightclub-amnesia-1',
+    'https://soundcloud.com/theglitchmob/we-can-make-the-world-stop',
+    'https://soundcloud.com/theglitchmob/the-glitch-mob-carry-the-sun',
+    'https://soundcloud.com/wolfganggartner/wolfgang-gartner-unholy-extended-mix',
     'https://soundcloud.com/okgo/i-wont-let-you-down',
     'https://soundcloud.com/fueled_by_ramen/migraine',
     'https://soundcloud.com/portugaltheman/atomic-man',
-    'https://soundcloud.com/upcastmusic/echosmith-cool-kids',
     'https://soundcloud.com/penguin-prison/show-me-the-way',
-    'https://soundcloud.com/penguin-prison/never-gets-old-1',
-    'https://soundcloud.com/rac/cheap-sunglasses-ft-matthew-koma',
     'https://soundcloud.com/atlanticrecords/youre-gonna-love-this-1',
     'https://soundcloud.com/fueled_by_ramen/paramore-aint-it-fun',
     'https://soundcloud.com/panicatthedisco/the-ballad-of-mona-lisa',
@@ -163,8 +184,6 @@
       '//api.soundcloud.com/resolve.json?url=' + soundcloudPermalink + '&' + soundcloudClient,
       function (response) {
         var information = JSON.parse(response.responseText);
-
-        console.log(information);
 
         audio.src = information.stream_url + '?' + soundcloudClient;
         audio.play();
@@ -207,28 +226,24 @@
 
 
 
+  //
   // Scene.
+  //
   var canvas = document.querySelector('.canvas');
-
   var scene, camera, renderer, light, composer, effect;
   var particles, circle, geometry, geometrySleeve, geometryListInt;
-
   var geometryList = [
     new THREE.TetrahedronGeometry(50, 0),
     new THREE.IcosahedronGeometry(40, 0),
     new THREE.OctahedronGeometry(40, 0)
   ];
-
   var geometryLength = 100;
 
   function initScene() {
     // Setup.
     scene = new THREE.Scene();
 
-    renderer = new THREE.WebGLRenderer({
-      alpha: true,
-      canvas: canvas
-    });
+    renderer = new THREE.WebGLRenderer({ alpha: true, canvas: canvas }) || new THREE.CanvasRenderer({ alpha: true, canvas: canvas });
 
     renderer.setSize(windowWidth, windowHeight);
 
@@ -292,11 +307,13 @@
 
 
 
+  //
   // Render.
+  //
   function render() {
     // Circle.
     for (var i = 0; i < geometryLength; i++) {
-      var value = ((audioFrequency[i] / 256) * 2.5) + 0.01;
+      var value = (audioFrequency) ? ((audioFrequency[i] / 256) * 2.5) + 0.01 : 1;
 
       geometry[i].scale.z = value;
 
@@ -320,7 +337,9 @@
     }
 
     // Audio.
-    audioAnalyser.getByteFrequencyData(audioFrequency);
+    if (audioAnalyser) {
+      audioAnalyser.getByteFrequencyData(audioFrequency);
+    }
 
     // Rendering.
     renderer.render(scene, camera);
@@ -331,7 +350,9 @@
 
 
 
+  //
   // Resize.
+  //
   window.addEventListener('resize', function() {
     windowHeight = window.innerHeight;
     windowWidth = window.innerWidth;
@@ -344,14 +365,19 @@
 
 
 
+  //
   // Move.
+  //
   window.addEventListener('mousemove', function(e) {
     mouseX = e.clientX - windowHalfWidth;
     mouseY = e.clientY - windowHalfHeight;
   });
 
 
+
+  //
   // Down.
+  //
   var clicked = false;
 
   window.addEventListener('click', function() {
@@ -390,8 +416,6 @@
           y: 100,
           z: 0
         });
-
-        geometry[i].scale.z = ((audioFrequency[i] / 256) * 2.5) + 0.01;
       }
 
       clicked = false;
@@ -400,7 +424,9 @@
 
 
 
+  //
   // Icons.
+  //
   function initIcons() {
     get(
       'dist/img/sprites/sprites.svg',
@@ -418,9 +444,13 @@
 
 
 
+  //
   // Init.
+  //
   if (window.AudioContext || window.webkitAudioContext) {
     initAudio();
+  } else {
+    document.querySelector('.music').innerHTML = 'Your browser doesn\'t support Web Audio API.';
   }
 
   initScene();
