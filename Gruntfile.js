@@ -22,7 +22,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('html', ['htmlmin:main']);
   grunt.registerTask('css', ['sass:main', 'postcss:main']);
-  grunt.registerTask('js', ['uglify:main']);
+  grunt.registerTask('js', ['browserify:main']);
   grunt.registerTask('img', ['imagemin:main']);
   grunt.registerTask('svg', ['svgstore:main']);
   grunt.registerTask('w', ['watch']);
