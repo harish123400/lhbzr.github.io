@@ -1,7 +1,5 @@
 // Library.
 var get = require('./lib/get');
-var int = require('./lib/int');
-var replace = require('./lib/int');
 
 
 // Classes.

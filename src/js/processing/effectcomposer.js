@@ -1,10 +1,8 @@
 /**
-* @author alteredq / http://alteredqualia.com/
-*/
+ * @author alteredq / http://alteredqualia.com/
+ */
 
-module.exports = THREE.EffectComposer;
-
-THREE.EffectComposer = function ( renderer, renderTarget ) {
+module.exports = THREE.EffectComposer = function ( renderer, renderTarget ) {
 
 	this.renderer = renderer;
 

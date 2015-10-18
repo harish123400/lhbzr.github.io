@@ -2,9 +2,7 @@
 * @author alteredq / http://alteredqualia.com/
 */
 
-module.exports = THREE.MaskPass;
-
-THREE.MaskPass = function ( scene, camera ) {
+module.exports = THREE.MaskPass = function ( scene, camera ) {
 
   this.scene = scene;
   this.camera = camera;

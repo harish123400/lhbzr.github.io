@@ -3,9 +3,12 @@ module.exports = function (grunt) {
 
   grunt.config('uglify', {
     main: {
+      options: {
+        mangle: false,
+      },
       files: [{
         expand: true,
-        cwd: '<%= src_js %>',
+        cwd: '<%= dist_js %>',
         src: ['*.js'],
         dest: '<%= dist_js %>',
         ext: '.min.js',
