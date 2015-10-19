@@ -78,8 +78,9 @@ var menu = require('./menu');
 // Music.
 var music = new Music();
 
-music.load();
-music.play();
+music.audio.addEventListener('ended', function() {
+  music.start();
+});
 
 
 // Scene.
@@ -211,7 +212,6 @@ function Music() {
   this.audio = new Audio();
   this.audio.crossOrigin = 'anonymous';
 
-
   // Context.
   this.context = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -263,10 +263,8 @@ function Music() {
     'https://soundcloud.com/yunizon-records/manganas-garden-slow-it-down',
     'https://soundcloud.com/templesofficial/shelter-song',
     'https://soundcloud.com/wearemausi/mausi-my-friend-has-a-swimming-pool',
-    'https://soundcloud.com/givemepowers/beat-of-my-drum',
     'https://soundcloud.com/pnau/embrace-feat-ladyhawke',
     'https://soundcloud.com/joywave/now',
-    'https://soundcloud.com/thecolourist/little-games',
     'https://soundcloud.com/penguin-prison/show-me-the-way',
     'https://soundcloud.com/scavengerhunt/wildfire',
     'https://soundcloud.com/atlas-genius/atlas-genius-back-seat',
@@ -288,6 +286,8 @@ function Music() {
     'https://soundcloud.com/fueled_by_ramen/paramore-aint-it-fun',
     'https://soundcloud.com/royksopp/happy-up-here-1'
   ];
+
+  this.start();
 };
 
 
@@ -309,7 +309,7 @@ Music.prototype.getFrequency = function() {
 };
 
 
-Music.prototype.load = function() {
+Music.prototype.start = function() {
   var audio = this.audio;
   var songs = this.songs;
 
@@ -320,6 +320,7 @@ Music.prototype.load = function() {
       var title = document.querySelector('.music-title');
       var user = document.querySelector('.music-user');
 
+      audio.crossOrigin = 'anonymous';
       audio.src = data.stream_url + '?client_id=78c6552c14b382e23be3bce2fc411a82';
 
       title.setAttribute('href', data.permalink_url);
@@ -329,6 +330,8 @@ Music.prototype.load = function() {
       user.textContent = data.user.username;
     }
   );
+
+  audio.play();
 };
 
 

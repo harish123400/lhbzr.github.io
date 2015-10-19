@@ -18,8 +18,9 @@ var menu = require('./menu');
 // Music.
 var music = new Music();
 
-music.load();
-music.play();
+music.audio.addEventListener('ended', function() {
+  music.start();
+});
 
 
 // Scene.
