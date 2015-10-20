@@ -126,7 +126,7 @@ Music.prototype.start = function() {
     }
   );
 
-  audio.play();
+  this.audio.play();
 };
 
 
