@@ -148,6 +148,7 @@ Scene.prototype.render = function() {
       this.geometry[i].scale.x = value;
       this.geometry[i].scale.y = value;
       this.geometry[i].scale.z = value;
+      this.geometry[i].rotation.z += 0.1;
     } else {
       this.geometry[i].scale.z = value;
     }
@@ -211,7 +212,7 @@ Scene.prototype.click = function() {
       TweenLite.to(this.geometry[i].position, 1, {
         x: "+= " + int(0, 1000),
         y: "+= " + int(0, 1000),
-        z: "+= " + int(-500, -250)
+        z: "+= " + int(-500, 1000)
       });
     }
 

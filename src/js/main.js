@@ -64,15 +64,15 @@ window.addEventListener('mousemove', function(e) {
 }, false);
 
 window.addEventListener('mousewheel', function(e) {
-  try {
-    if (music.audio.volume >= 0 && music.audio.volume <= 1) {
-      if (e.wheelDelta < 0) {
-        music.audio.volume -= 0.1;
-      } else {
-        music.audio.volume += 0.1;
-      }
+  var volume = Math.round(music.audio.volume * 100) / 100;
+
+  if (volume >= 0 && volume <= 1) {
+    if (e.wheelDelta < 0) {
+      volume = (volume == 0) ? 0 : volume - 0.05;
+    } else {
+      volume = (volume == 1) ? 1 : volume + 0.05;
     }
-  } catch (e) {
-    
+
+    music.audio.volume = volume;
   }
 });
