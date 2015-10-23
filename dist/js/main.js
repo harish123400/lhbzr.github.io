@@ -106,6 +106,10 @@ get(
 );
 
 
+// Audio.
+var volume;
+
+
 // Window.
 window.addEventListener('resize', function() {
   scene.resize();
@@ -118,6 +122,20 @@ window.addEventListener('click', function(e) {
 window.addEventListener('mousemove', function(e) {
   scene.mousemove(e);
 }, false);
+
+window.addEventListener('mousewheel', function(e) {
+  try {
+    if (music.audio.volume >= 0 && music.audio.volume <= 1) {
+      if (e.wheelDelta < 0) {
+        music.audio.volume -= 0.1;
+      } else {
+        music.audio.volume += 0.1;
+      }
+    }
+  } catch (e) {
+    
+  }
+});
 
 },{"./about":1,"./lib/get":2,"./menu":6,"./music":7,"./scene":12}],6:[function(require,module,exports){
 var int = require('./lib/int');
@@ -322,7 +340,6 @@ Music.prototype.start = function() {
 
       audio.crossOrigin = 'anonymous';
       audio.src = data.stream_url + '?client_id=78c6552c14b382e23be3bce2fc411a82';
-      audio.play();
 
       title.setAttribute('href', data.permalink_url);
       title.textContent = data.title;
@@ -331,6 +348,8 @@ Music.prototype.start = function() {
       user.textContent = data.user.username;
     }
   );
+
+  this.audio.play();
 };
 
 

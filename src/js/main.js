@@ -46,6 +46,10 @@ get(
 );
 
 
+// Audio.
+var volume;
+
+
 // Window.
 window.addEventListener('resize', function() {
   scene.resize();
@@ -58,3 +62,17 @@ window.addEventListener('click', function(e) {
 window.addEventListener('mousemove', function(e) {
   scene.mousemove(e);
 }, false);
+
+window.addEventListener('mousewheel', function(e) {
+  try {
+    if (music.audio.volume >= 0 && music.audio.volume <= 1) {
+      if (e.wheelDelta < 0) {
+        music.audio.volume -= 0.1;
+      } else {
+        music.audio.volume += 0.1;
+      }
+    }
+  } catch (e) {
+    
+  }
+});
