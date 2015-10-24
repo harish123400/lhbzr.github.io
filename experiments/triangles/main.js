@@ -91,7 +91,7 @@
 
     scene.add(camera);
 
-    renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.WebGLRenderer({alpha: true});
 
     renderer.setClearColor(0xFFFFFF, 0)
     renderer.setSize(windowWidth, windowHeight);
@@ -207,6 +207,7 @@
         });
       }
 
+      effectOne.uniforms['scale'].value = 5;
       triangleMaterial.wireframe = false;
 
       windowClicked = false;
@@ -225,6 +226,7 @@
         });
       }
 
+      effectOne.uniforms['scale'].value = 0;
       triangleMaterial.wireframe = true;
 
       windowClicked = true;
