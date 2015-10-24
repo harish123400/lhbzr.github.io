@@ -3,10 +3,6 @@
   var windowWidth = window.innerWidth,
       windowHeight = window.innerHeight;
 
-  // Mouse.
-  var mouseX = 0,
-      mouseY = 0;
-
   // Audio.
   var audio,
       audioContext,
@@ -43,7 +39,7 @@
           var music = document.createElement('a');
 
           music.setAttribute('href', information.permalink_url);
-          music.innerHTML = '<img src="https://developers.soundcloud.com/assets/logo_white.png">' + information.title + ' - ' + information.user.username;
+          music.innerHTML = information.title + ' - ' + information.user.username;
 
           document.body.appendChild(music);
       }
@@ -68,12 +64,11 @@
       renderer,
       light,
       composer,
+      effect,
       circle,
       triangle,
       triangleSleeve,
-      triangleLength = 100,
-      effectOne,
-      effectTwo;
+      triangleLength = 100;
 
   function initScene() {
     scene = new THREE.Scene();
@@ -125,14 +120,14 @@
     composer = new THREE.EffectComposer(renderer);
     composer.addPass(new THREE.RenderPass(scene, camera));
 
-    effectOne = new THREE.ShaderPass(THREE.DotScreenShader);
-    effectOne.uniforms['scale'].value = 5;
-    composer.addPass(effectOne);
+    effect = new THREE.ShaderPass(THREE.DotScreenShader);
+    effect.uniforms['scale'].value = 5;
+    composer.addPass(effect);
 
-    effectTwo = new THREE.ShaderPass(THREE.RGBShiftShader);
-    effectTwo.uniforms['amount'].value = 0.005;
-    effectTwo.renderToScreen = true;
-    composer.addPass(effectTwo);
+    effect = new THREE.ShaderPass(THREE.RGBShiftShader);
+    effect.uniforms['amount'].value = 0.005;
+    effect.renderToScreen = true;
+    composer.addPass(effect);
 
     renderer.render(scene, camera);
 
@@ -149,10 +144,6 @@
 
     renderer.render(scene, camera);
 
-    TweenLite.to(effectTwo.uniforms['amount'], 1, {
-      value: mouseX / 2500
-    });
-
     composer.render();
 
     audioAnalyser.getByteFrequencyData(audioFrequency);
@@ -160,7 +151,7 @@
     requestAnimationFrame(render);
   }
 
-  // Window.
+  //Resize.
   window.addEventListener('resize', function() {
     windowHeight = window.innerHeight;
     windowWidth = window.innerWidth;
@@ -171,22 +162,8 @@
     renderer.setSize(windowWidth, windowHeight);
   });
 
-  window.addEventListener('mousewheel', function(e) {
-    var volume = Math.round(audio.volume * 100) / 100;
+  // Mouse.
 
-      if (e.wheelDelta < 0 && volume - 0.05 >= 0) {
-          volume = Math.abs(volume - 0.05);
-      } else if (e.wheelDelta > 0 && volume + 0.05 <= 1) {
-          volume = Math.abs(volume + 0.05);
-      }
-
-      audio.volume = volume;
-  });
-
-  window.addEventListener('mousemove', function(e) {
-    mouseX = e.clientX - windowWidth / 2;
-    mouseY = e.clientY - windowHeight / 2;
-  });
 
   //Init.
   initAudio();
