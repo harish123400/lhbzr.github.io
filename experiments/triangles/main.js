@@ -39,7 +39,7 @@
           var music = document.createElement('a');
 
           music.setAttribute('href', information.permalink_url);
-          music.innerHTML = information.title + ' - ' + information.user.username;
+          music.innerHTML = '<img src="https://developers.soundcloud.com/assets/logo_white.png">' + information.title + ' - ' + information.user.username;
 
           document.body.appendChild(music);
       }
