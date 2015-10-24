@@ -76,6 +76,8 @@
       composer,
       circle,
       triangle,
+      triangleGeometry,
+      triangleMaterial,
       triangleSleeve,
       triangleLength = 100,
       effectOne,
@@ -107,15 +109,12 @@
     circle = new THREE.Object3D();
 
     triangle = [];
+    triangleGeometry = new THREE.TetrahedronGeometry(45, 0);
+    triangleMaterial = new THREE.MeshPhongMaterial({ color: 0xFFFFFF });
     triangleSleeve = [];
 
     for (var i = 0; i < triangleLength; i++) {
-      triangle[i] = new THREE.Mesh(
-        new THREE.TetrahedronGeometry(45, 0),
-        new THREE.MeshPhongMaterial({
-          color: 0xFFFFFF
-        })
-      );
+      triangle[i] = new THREE.Mesh(triangleGeometry, triangleMaterial);
 
       triangle[i].position.y = 100;
 
@@ -171,7 +170,7 @@
     // Shader.
     if (windowClicked) {
       TweenLite.to(effectTwo.uniforms['amount'], 1, {
-        value: 0.001
+        value: 0.005
       });
     } else {
       TweenLite.to(effectTwo.uniforms['amount'], 1, {
@@ -208,6 +207,8 @@
         });
       }
 
+      triangleMaterial.wireframe = false;
+
       windowClicked = false;
     } else {
       for (var i = 0; i < triangleLength; i++) {
@@ -223,6 +224,8 @@
           z: "+= " + int(-500, 0)
         });
       }
+
+      triangleMaterial.wireframe = true;
 
       windowClicked = true;
     }
