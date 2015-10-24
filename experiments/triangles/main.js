@@ -1,11 +1,17 @@
 (function() {
   // Window.
   var windowWidth = window.innerWidth,
-      windowHeight = window.innerHeight;
+      windowHeight = window.innerHeight,
+      windowClicked = false;
 
   // Mouse.
   var mouseX = 0,
       mouseY = 0;
+
+  // Integer.
+  function int(min, max) {
+   return Math.floor(Math.random() * (max - min + 1) + min);
+ };
 
   // Audio.
   var audio,
@@ -141,26 +147,87 @@
 
   //Render.
   function render() {
+    requestAnimationFrame(render);
+
     for (var i = 0; i < triangleLength; i++) {
-      triangle[i].scale.z = ((audioFrequency[i] / 256) * 2.5) + 0.01;
+      // Triangles.
+      var value = ((audioFrequency[i] / 256) * 2.5) + 0.01;
+
+      if (windowClicked) {
+        triangle[i].scale.x = value;
+        triangle[i].scale.y = value;
+        triangle[i].scale.z = value;
+
+        triangle[i].rotation.x += 0.01;
+        triangle[i].rotation.y += 0.01;
+        triangle[i].rotation.z += 0.01;
+      } else {
+        triangle[i].scale.z = value;
+      }
     }
 
     circle.rotation.z += 0.01;
 
-    renderer.render(scene, camera);
+    // Shader.
+    if (windowClicked) {
+      TweenLite.to(effectTwo.uniforms['amount'], 1, {
+        value: 0.001
+      });
+    } else {
+      TweenLite.to(effectTwo.uniforms['amount'], 1, {
+        value: mouseX / 2500
+      });
+    }
 
-    TweenLite.to(effectTwo.uniforms['amount'], 1, {
-      value: mouseX / 2500
-    });
-
-    composer.render();
-
+    // Render.
     audioAnalyser.getByteFrequencyData(audioFrequency);
-
-    requestAnimationFrame(render);
+    renderer.render(scene, camera);
+    composer.render();
   }
 
   // Window.
+  window.addEventListener('click', function() {
+    if (windowClicked) {
+      for (var i = 0; i < triangleLength; i++) {
+        TweenLite.to(triangle[i].scale, 1, {
+          x: 1,
+          y: 1,
+          z: 1
+        });
+
+        TweenLite.to(triangle[i].rotation, 1, {
+          x: 0,
+          y: 0,
+          z: 0
+        });
+
+        TweenLite.to(triangle[i].position, 1, {
+          x: 0,
+          y: 100,
+          z: 0
+        });
+      }
+
+      windowClicked = false;
+    } else {
+      for (var i = 0; i < triangleLength; i++) {
+        TweenLite.to(triangle[i].rotation, 1, {
+          x: int(0, Math.PI),
+          y: int(0, Math.PI),
+          z: int(0, Math.PI)
+        });
+
+        TweenLite.to(triangle[i].position, 1, {
+          x: "+= " + int(-1000, 1000),
+          y: "+= " + int(-1000, 1000),
+          z: "+= " + int(-500, 0)
+        });
+      }
+
+      windowClicked = true;
+    }
+  });
+
   window.addEventListener('resize', function() {
     windowHeight = window.innerHeight;
     windowWidth = window.innerWidth;
