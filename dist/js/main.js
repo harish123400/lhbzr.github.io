@@ -336,8 +336,8 @@ Music.prototype.start = function() {
       var title = document.querySelector('.music-title');
       var user = document.querySelector('.music-user');
 
-      audio.crossOrigin = 'anonymous';
       audio.src = data.stream_url + '?client_id=78c6552c14b382e23be3bce2fc411a82';
+      audio.play();
 
       title.setAttribute('href', data.permalink_url);
       title.textContent = data.title;
@@ -346,8 +346,6 @@ Music.prototype.start = function() {
       user.textContent = data.user.username;
     }
   );
-
-  this.audio.play();
 };
 
 
