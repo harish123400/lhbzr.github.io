@@ -1,19 +1,15 @@
 (function() {
-  // Window.
   var windowWidth = window.innerWidth,
       windowHeight = window.innerHeight,
       windowClicked = false;
 
-  // Mouse.
   var mouseX = 0,
       mouseY = 0;
 
-  // Integer.
   function int(min, max) {
    return Math.floor(Math.random() * (max - min + 1) + min);
  };
 
-  // Audio.
   var audio,
       audioContext,
       audioAnalyser,
@@ -68,7 +64,6 @@
     });
   }
 
-  //Scene.
   var scene,
       camera,
       renderer,
@@ -144,12 +139,10 @@
     document.body.appendChild(renderer.domElement);
   }
 
-  //Render.
   function render() {
     requestAnimationFrame(render);
 
     for (var i = 0; i < triangleLength; i++) {
-      // Triangles.
       var value = ((audioFrequency[i] / 256) * 2.5) + 0.01;
 
       if (windowClicked) {
@@ -167,7 +160,6 @@
 
     circle.rotation.z += 0.01;
 
-    // Shader.
     if (windowClicked) {
       TweenLite.to(effectTwo.uniforms['amount'], 1, {
         value: 0.005
@@ -178,13 +170,11 @@
       });
     }
 
-    // Render.
     audioAnalyser.getByteFrequencyData(audioFrequency);
     renderer.render(scene, camera);
     composer.render();
   }
 
-  // Window.
   window.addEventListener('click', function() {
     if (windowClicked) {
       for (var i = 0; i < triangleLength; i++) {
@@ -260,7 +250,6 @@
     mouseY = e.clientY - windowHeight / 2;
   });
 
-  //Init.
   initAudio();
   initScene();
   render();
