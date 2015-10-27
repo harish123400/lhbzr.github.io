@@ -212,7 +212,7 @@ Scene.prototype.click = function() {
       TweenLite.to(this.geometry[i].position, 1, {
         x: "+= " + int(-1000, 1000),
         y: "+= " + int(-1000, 1000),
-        z: "+= " + int(-500, 100)
+        z: "+= " + int(-500, 0)
       });
     }
 
