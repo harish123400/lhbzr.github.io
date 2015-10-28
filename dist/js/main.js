@@ -793,7 +793,7 @@ Scene.prototype.render = function() {
     });
   } else {
     TweenLite.to(this.effect.uniforms['amount'], 1, {
-      value: this.mouse.x / 2500
+      value: this.mouse.x / window.innerWidth
     });
   }
 
@@ -803,12 +803,25 @@ Scene.prototype.render = function() {
     var value = ((this.music.getFrequency()[i] / 256) * 2.5) + 0.01;
 
     if (this.clicked) {
-      this.geometry[i].scale.x = value;
-      this.geometry[i].scale.y = value;
-      this.geometry[i].scale.z = value;
-      this.geometry[i].rotation.z += 0.1;
+      TweenLite.to(this.geometry[i].scale, .1, {
+        x: value,
+        y: value,
+        z: value
+      });
+
+      if (i % 2 == 0) {
+        TweenLite.to(this.geometry[i].rotation, .1, {
+          z: "+= 0.1"
+        });
+      } else {
+        TweenLite.to(this.geometry[i].rotation, .1, {
+          z: "-= 0.1"
+        });
+      }
     } else {
-      this.geometry[i].scale.z = value;
+      TweenLite.to(this.geometry[i].scale, .1, {
+        z: value
+      });
     }
   }
 
@@ -870,7 +883,7 @@ Scene.prototype.click = function() {
       TweenLite.to(this.geometry[i].position, 1, {
         x: "+= " + int(-1000, 1000),
         y: "+= " + int(-1000, 1000),
-        z: "+= " + int(-500, 0)
+        z: "+= " + int(-500, -250)
       });
     }
 
