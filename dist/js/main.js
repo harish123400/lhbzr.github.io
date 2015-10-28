@@ -15,15 +15,15 @@ module.exports = (function() {
   // Hover.
   about.addEventListener('mouseover', function() {
     TweenLite.to(about, .4, {
-      background: 'rgba(255, 255, 255, 0)',
-      color: 'rgb(255, 255, 255)'
+      background: 'rgba(255, 255, 255, 1)',
+      color: 'rgb(0, 0, 0)'
     });
   });
 
   about.addEventListener('mouseout', function() {
     TweenLite.to(about, .4, {
-      background: 'rgba(255, 255, 255, 1)',
-      color: 'rgb(0, 0, 0)'
+      background: 'rgba(255, 255, 255, 0)',
+      color: 'rgb(255, 255, 255)'
     });
   });
 
@@ -250,57 +250,13 @@ function Music() {
 
   // Songs.
   this.songs = [
-    'https://soundcloud.com/penguin-prison/never-gets-old-1',
-    'https://soundcloud.com/thewallaband/101a',
-    'https://soundcloud.com/pop/iris-ill-wait-for-you',
-    'https://soundcloud.com/upcastmusic/echosmith-cool-kids',
-    'https://soundcloud.com/chvrches/chvrches-get-away',
-    'https://soundcloud.com/rac/cheap-sunglasses-ft-matthew-koma',
-    'https://soundcloud.com/greatgoodfineok/not-going-home',
-    'https://soundcloud.com/recordrecords/of-monsters-and-men-little-2',
-    'https://soundcloud.com/atlas-genius/trojans',
-    'https://soundcloud.com/m83/midnight-city',
-    'https://soundcloud.com/teganandsara/closer',
-    'https://soundcloud.com/nettwerkmusicgroup/03-you-me-the-bourgeoisie',
-    'https://soundcloud.com/wolfgang/lions-in-cages?in=wolfgang/sets/wolf-gang',
-    'https://soundcloud.com/miami-horror/holidays',
-    'https://soundcloud.com/panicatthedisco/vegas-lights',
-    'https://soundcloud.com/panicatthedisco/panic-at-the-disco-hallelujah',
-    'https://soundcloud.com/panicatthedisco/panic-at-the-disco-girlsgirlsboys',
-    'https://soundcloud.com/whitetown/04-your-woman',
-    'https://soundcloud.com/chromeo/night-by-night',
-    'https://soundcloud.com/warnerbrosrecords/nonono-pumpin-blood',
-    'https://soundcloud.com/wichita-recordings/peter-bjorn-and-john-young-folks',
-    'https://soundcloud.com/the-ting-tings/do-it-again-1',
-    'https://soundcloud.com/the-ting-tings/wrong-club',
-    'https://soundcloud.com/fueled_by_ramen/migraine',
-    'https://soundcloud.com/joywave/tongues',
-    'https://soundcloud.com/blind-pilot-music/go-on-say-it',
-    'https://soundcloud.com/yunizon-records/manganas-garden-slow-it-down',
-    'https://soundcloud.com/templesofficial/shelter-song',
-    'https://soundcloud.com/wearemausi/mausi-my-friend-has-a-swimming-pool',
-    'https://soundcloud.com/pnau/embrace-feat-ladyhawke',
-    'https://soundcloud.com/joywave/now',
-    'https://soundcloud.com/penguin-prison/show-me-the-way',
-    'https://soundcloud.com/scavengerhunt/wildfire',
-    'https://soundcloud.com/atlas-genius/atlas-genius-back-seat',
-    'https://soundcloud.com/wearelisbon/b-l-u-e-l-o-v-e',
-    'https://soundcloud.com/ghostbeach/ghost-beach-on-my-side',
-    'https://soundcloud.com/yuksek/kostrok-right-now-yuksek',
-    'https://soundcloud.com/equalvision/northern-faces-wait-wait-wait',
-    'https://soundcloud.com/helloclubfeet/clubfeet-heartbreak-feat-chela',
-    'https://soundcloud.com/iamsoundrecords/kate-boy-northern-lights-mp3',
-    'https://soundcloud.com/wearelisbon/khaleesi',
-    'https://soundcloud.com/officialratatat/02-cream-on-chrome-1',
-    'https://soundcloud.com/officialratatat/08-nightclub-amnesia-1',
-    'https://soundcloud.com/theglitchmob/we-can-make-the-world-stop',
-    'https://soundcloud.com/theglitchmob/the-glitch-mob-carry-the-sun',
     'https://soundcloud.com/wolfganggartner/wolfgang-gartner-unholy-extended-mix',
-    'https://soundcloud.com/okgo/i-wont-let-you-down',
-    'https://soundcloud.com/portugaltheman/atomic-man',
-    'https://soundcloud.com/atlanticrecords/youre-gonna-love-this-1',
-    'https://soundcloud.com/fueled_by_ramen/paramore-aint-it-fun',
-    'https://soundcloud.com/royksopp/happy-up-here-1'
+    'https://soundcloud.com/mau5trap/deadmau5-some-chords-original',
+    'https://soundcloud.com/aviciiofficial/avicii-levels-original-mix',
+    'https://soundcloud.com/c2cdjs/down-the-road',
+    'https://soundcloud.com/madeon/pay-no-mind',
+    'https://soundcloud.com/futureclassic/hayden-james-something-about-you-2',
+    'https://soundcloud.com/majorlazer/major-lazer-dj-snake-lean-on-feat-mo'
   ];
 
   this.start();
