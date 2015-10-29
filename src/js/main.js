@@ -22,7 +22,7 @@ var music = new Music(),
     musicNext = document.querySelector('.music-next');
 
 music.audio.addEventListener('ended', function() {
-  music.load();
+  music.load(music.songNext);
 });
 
 musicToggle.addEventListener('click', function(e) {
