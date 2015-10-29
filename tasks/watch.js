@@ -13,6 +13,10 @@ module.exports = function (grunt) {
     js: {
       files: ['<%= src_js %>/**/*.js'],
       tasks: ['js']
+    },
+    svg: {
+      files: ['<%= src_img %>/sprites/*.svg'],
+      tasks: ['svg']
     }
   });
 };

@@ -76,10 +76,39 @@ var menu = require('./menu');
 
 
 // Music.
-var music = new Music();
+var music = new Music(),
+    musicPrev = document.querySelector('.music-prev'),
+    musicToggle = document.querySelector('.music-toggle'),
+    musicNext = document.querySelector('.music-next');
 
 music.audio.addEventListener('ended', function() {
   music.start();
+});
+
+musicToggle.addEventListener('click', function(e) {
+  e.stopPropagation();
+
+  if (music.isPaused()) {
+    this.classList.remove('is-paused');
+
+    music.play();
+  } else {
+    this.classList.add('is-paused');
+
+    music.pause();
+  }
+});
+
+musicPrev.addEventListener('click', function(e) {
+  e.stopPropagation();
+
+  music.prev();
+});
+
+musicNext.addEventListener('click', function(e) {
+  e.stopPropagation();
+
+  music.next();
 });
 
 
@@ -104,10 +133,6 @@ get(
     document.body.insertBefore(wrapper, document.body.childNodes[0]);
   }
 );
-
-
-// Audio.
-var volume;
 
 
 // Window.
@@ -228,6 +253,7 @@ function Music() {
   this.audio = new Audio();
   this.audio.crossOrigin = 'anonymous';
 
+
   // Context.
   this.context = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -259,7 +285,14 @@ function Music() {
     'https://soundcloud.com/majorlazer/major-lazer-dj-snake-lean-on-feat-mo'
   ];
 
-  this.start();
+
+  // Playing.
+  this.song = Math.floor(Math.random() * this.songs.length);
+  this.songPrev = null;
+  this.songNext = null;
+
+  // Start.
+  this.load(this.song);
 };
 
 
@@ -281,12 +314,12 @@ Music.prototype.getFrequency = function() {
 };
 
 
-Music.prototype.start = function() {
+Music.prototype.load = function(song) {
   var audio = this.audio;
   var songs = this.songs;
 
   get(
-    '//api.soundcloud.com/resolve.json?url=' + songs[Math.floor(Math.random() * songs.length)] + '&client_id=78c6552c14b382e23be3bce2fc411a82',
+    '//api.soundcloud.com/resolve.json?url=' + songs[song] + '&client_id=78c6552c14b382e23be3bce2fc411a82',
     function(request) {
       var data = JSON.parse(request.responseText);
       var title = document.querySelector('.music-title');
@@ -302,6 +335,20 @@ Music.prototype.start = function() {
       user.textContent = data.user.username;
     }
   );
+
+  this.song = song;
+  this.songPrev = (this.song != 0) ? this.song - 1 : this.songs.length - 1;
+  this.songNext = (this.song < this.songs.length - 1) ? this.song + 1 : 0;
+};
+
+
+Music.prototype.next = function() {
+  this.load(this.songNext);
+};
+
+
+Music.prototype.prev = function() {
+  this.load(this.songPrev);
 };
 
 

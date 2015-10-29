@@ -16,10 +16,39 @@ var menu = require('./menu');
 
 
 // Music.
-var music = new Music();
+var music = new Music(),
+    musicPrev = document.querySelector('.music-prev'),
+    musicToggle = document.querySelector('.music-toggle'),
+    musicNext = document.querySelector('.music-next');
 
 music.audio.addEventListener('ended', function() {
   music.start();
+});
+
+musicToggle.addEventListener('click', function(e) {
+  e.stopPropagation();
+
+  if (music.isPaused()) {
+    this.classList.remove('is-paused');
+
+    music.play();
+  } else {
+    this.classList.add('is-paused');
+
+    music.pause();
+  }
+});
+
+musicPrev.addEventListener('click', function(e) {
+  e.stopPropagation();
+
+  music.prev();
+});
+
+musicNext.addEventListener('click', function(e) {
+  e.stopPropagation();
+
+  music.next();
 });
 
 
@@ -44,10 +73,6 @@ get(
     document.body.insertBefore(wrapper, document.body.childNodes[0]);
   }
 );
-
-
-// Audio.
-var volume;
 
 
 // Window.

@@ -18,6 +18,44 @@
   vertical-align: middle;
 }
 
+.music-btns {
+  display: block;
+  margin-top: 10px;
+}
+
+.music-btn {
+  border: none;
+  background: none;
+  outline: none;
+  padding: 0;
+  fill: #FFF;
+}
+
+.music-toggle {
+  .music-btn-icon-pause {
+    display: block;
+  }
+
+  .music-btn-icon-play {
+    display: none;
+  }
+
+  &.is-paused {
+    .music-btn-icon-pause {
+      display: none;
+    }
+
+    .music-btn-icon-play {
+      display: block;
+    }
+  }
+}
+
+.music-btn-icon {
+  height: 25px;
+  width: 25px;
+}
+
 @media (max-width: 1110px) {
   .music {
     display: none;
