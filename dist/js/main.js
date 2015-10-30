@@ -276,6 +276,9 @@ function Music() {
 
   // Songs.
   this.songs = [
+    'https://soundcloud.com/prettylights/pretty-lights-finally-moving',
+    'https://soundcloud.com/kflay/5-am-w-something-a-la-mode',
+    'https://soundcloud.com/downtownrecords/justice-dance',
     'https://soundcloud.com/wolfganggartner/wolfgang-gartner-unholy-extended-mix',
     'https://soundcloud.com/mau5trap/deadmau5-some-chords-original',
     'https://soundcloud.com/aviciiofficial/avicii-levels-original-mix',
