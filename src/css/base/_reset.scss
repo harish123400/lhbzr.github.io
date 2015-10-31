@@ -43,6 +43,18 @@ body {
     top: 0;
     z-index: 1;
   }
+
+  &:before {
+    border: 1px solid #FFF;
+    bottom: 15px;
+    content: '';
+    display: block;
+    left: 15px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 1;
+  }
 }
 
 /* HTML5 display definitions
