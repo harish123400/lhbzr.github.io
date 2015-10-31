@@ -254,25 +254,26 @@ function Music() {
   this.audio.crossOrigin = 'anonymous';
 
 
-  // Context.
-  this.context = new (window.AudioContext || window.webkitAudioContext)();
+  if (window.AudioContext || window.webkitAudioContext) {
+    // Context.
+    this.context = new (window.AudioContext || window.webkitAudioContext)();
 
 
-  // Analyser.
-  this.analyser = this.context.createAnalyser();
-  this.analyser.smoothingTimeConstant = 0.1;
-  this.analyser.fftSize = 2048;
-  this.analyser.connect(this.context.destination);
+    // Analyser.
+    this.analyser = this.context.createAnalyser();
+    this.analyser.smoothingTimeConstant = 0.1;
+    this.analyser.fftSize = 2048;
+    this.analyser.connect(this.context.destination);
 
-  // Source.
-  this.src = this.context.createMediaElementSource(this.audio);
-  this.src.connect(this.context.destination);
-  this.src.connect(this.analyser);
+    // Source.
+    this.src = this.context.createMediaElementSource(this.audio);
+    this.src.connect(this.context.destination);
+    this.src.connect(this.analyser);
 
 
-  // Frequency.
-  this.frequency = new Uint8Array(this.analyser.frequencyBinCount);
-
+    // Frequency.
+    this.frequency = new Uint8Array(this.analyser.frequencyBinCount);
+  }
 
   // Songs.
   this.songs = [
@@ -850,7 +851,11 @@ Scene.prototype.render = function() {
 
   // Movement.
   for (var i = 0; i < Scene.GEOMETRY_LENGTH; i++) {
-    var value = ((this.music.getFrequency()[i] / 256) * 2.5) + 0.01;
+    var value = 1;
+
+    if (window.AudioContext || window.webkitAudioContext) {
+       value = ((this.music.getFrequency()[i] / 256) * 2.5) + 0.01;
+    }
 
     if (this.clicked) {
       TweenLite.to(this.geometry[i].scale, .1, {

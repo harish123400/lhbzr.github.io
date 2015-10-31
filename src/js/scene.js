@@ -142,7 +142,11 @@ Scene.prototype.render = function() {
 
   // Movement.
   for (var i = 0; i < Scene.GEOMETRY_LENGTH; i++) {
-    var value = ((this.music.getFrequency()[i] / 256) * 2.5) + 0.01;
+    var value = 1;
+
+    if (window.AudioContext || window.webkitAudioContext) {
+       value = ((this.music.getFrequency()[i] / 256) * 2.5) + 0.01;
+    }
 
     if (this.clicked) {
       TweenLite.to(this.geometry[i].scale, .1, {
