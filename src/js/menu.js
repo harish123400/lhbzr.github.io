@@ -18,7 +18,7 @@ module.exports = (function() {
       edgeResistance: 1,
       type: 'x, y',
       onClick: function() {
-        location.href = this.target.getAttribute('data-href');
+        window.open(this.target.getAttribute('data-href'), '');
       }
     });
 
