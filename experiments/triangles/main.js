@@ -166,7 +166,7 @@
       });
     } else {
       TweenLite.to(effectTwo.uniforms['amount'], 1, {
-        value: mouseX / 2500
+        value: mouseX / window.innerWidth
       });
     }
 
