@@ -14,15 +14,15 @@ module.exports = (function() {
   // Hover.
   about.addEventListener('mouseover', function() {
     TweenLite.to(about, .4, {
-      background: 'rgba(255, 255, 255, 1)',
-      color: 'rgb(0, 0, 0)'
+      background: 'rgba(255, 255, 255, 0)',
+      color: 'rgb(255, 255, 255)'
     });
   });
 
   about.addEventListener('mouseout', function() {
     TweenLite.to(about, .4, {
-      background: 'rgba(255, 255, 255, 0)',
-      color: 'rgb(255, 255, 255)'
+      background: 'rgba(255, 255, 255, 1)',
+      color: 'rgb(0, 0, 0)'
     });
   });
 
