@@ -146,15 +146,25 @@
       var value = ((audioFrequency[i] / 256) * 2.5) + 0.01;
 
       if (windowClicked) {
-        triangle[i].scale.x = value;
-        triangle[i].scale.y = value;
-        triangle[i].scale.z = value;
+        TweenLite.to(triangle[i].scale, .1, {
+          x: value,
+          y: value,
+          z: value
+        });
 
-        triangle[i].rotation.x += 0.01;
-        triangle[i].rotation.y += 0.01;
-        triangle[i].rotation.z += 0.01;
+        if (i % 2 == 0) {
+          TweenLite.to(triangle[i].rotation, .1, {
+            z: "+= 0.1"
+          });
+        } else {
+          TweenLite.to(triangle[i].rotation, .1, {
+            z: "-= 0.1"
+          });
+        }
       } else {
-        triangle[i].scale.z = value;
+        TweenLite.to(triangle[i].scale, .1, {
+          z: value
+        });
       }
     }
 
@@ -212,7 +222,7 @@
         TweenLite.to(triangle[i].position, 1, {
           x: "+= " + int(-1000, 1000),
           y: "+= " + int(-1000, 1000),
-          z: "+= " + int(-500, 0)
+          z: "+= " + int(-500, -250)
         });
       }
 
