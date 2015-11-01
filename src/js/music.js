@@ -39,7 +39,9 @@ function Music() {
     'https://soundcloud.com/c2cdjs/down-the-road',
     'https://soundcloud.com/madeon/pay-no-mind',
     'https://soundcloud.com/futureclassic/hayden-james-something-about-you-2',
-    'https://soundcloud.com/majorlazer/major-lazer-dj-snake-lean-on-feat-mo'
+    'https://soundcloud.com/majorlazer/major-lazer-dj-snake-lean-on-feat-mo',
+    'https://soundcloud.com/whoismgmt/kids',
+    'https://soundcloud.com/themagician/lykke-li-i-follow-rivers-the-magician-remix'
   ];
 
 

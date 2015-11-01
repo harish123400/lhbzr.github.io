@@ -277,15 +277,18 @@ function Music() {
 
   // Songs.
   this.songs = [
-    'https://soundcloud.com/prettylights/pretty-lights-finally-moving',
-    'https://soundcloud.com/kflay/5-am-w-something-a-la-mode',
-    'https://soundcloud.com/downtownrecords/justice-dance',
-    'https://soundcloud.com/wolfganggartner/wolfgang-gartner-unholy-extended-mix',
-    'https://soundcloud.com/aviciiofficial/avicii-levels-original-mix',
-    'https://soundcloud.com/c2cdjs/down-the-road',
-    'https://soundcloud.com/madeon/pay-no-mind',
-    'https://soundcloud.com/futureclassic/hayden-james-something-about-you-2',
-    'https://soundcloud.com/majorlazer/major-lazer-dj-snake-lean-on-feat-mo'
+    // 'https://soundcloud.com/prettylights/pretty-lights-finally-moving',
+    // 'https://soundcloud.com/kflay/5-am-w-something-a-la-mode',
+    // 'https://soundcloud.com/downtownrecords/justice-dance',
+    // 'https://soundcloud.com/wolfganggartner/wolfgang-gartner-unholy-extended-mix',
+    // 'https://soundcloud.com/aviciiofficial/avicii-levels-original-mix',
+    // 'https://soundcloud.com/c2cdjs/down-the-road',
+    // 'https://soundcloud.com/madeon/pay-no-mind',
+    // 'https://soundcloud.com/futureclassic/hayden-james-something-about-you-2',
+    // 'https://soundcloud.com/majorlazer/major-lazer-dj-snake-lean-on-feat-mo',
+    // 'https://soundcloud.com/whoismgmt/kids',
+    // 'https://soundcloud.com/themagician/lykke-li-i-follow-rivers-the-magician-remix',
+    'https://soundcloud.com/faul-official/changes-feat-wad-ad?in=johnnysoul-1/sets/faul-wad-ad-vs-pnau-changes'
   ];
 
 
