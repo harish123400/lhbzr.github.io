@@ -7,7 +7,6 @@ function Music() {
   this.audio = new Audio();
   this.audio.crossOrigin = 'anonymous';
 
-
   if (window.AudioContext || window.webkitAudioContext) {
     // Context.
     this.context = new (window.AudioContext || window.webkitAudioContext)();

@@ -29,3 +29,11 @@
     color: #FFF;
   }
 }
+
+@media (max-width: 400px) {
+  .about {
+    height: 100%;
+    text-align: center;
+    width: 100%;
+  }
+}
