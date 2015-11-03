@@ -91,11 +91,11 @@ window.addEventListener('mousemove', function(e) {
 window.addEventListener('mousewheel', function(e) {
   var volume = Math.round(music.audio.volume * 100) / 100;
 
-    if (e.wheelDelta < 0 && volume - 0.05 >= 0) {
-        volume = Math.abs(volume - 0.05);
-    } else if (e.wheelDelta > 0 && volume + 0.05 <= 1) {
-        volume = Math.abs(volume + 0.05);
-    }
+  if (e.wheelDelta < 0 && volume - 0.05 >= 0) {
+    volume = Math.abs(volume - 0.05);
+  } else if (e.wheelDelta > 0 && volume + 0.05 <= 1) {
+    volume = Math.abs(volume + 0.05);
+  }
 
-    music.audio.volume = volume;
+  music.audio.volume = volume;
 });

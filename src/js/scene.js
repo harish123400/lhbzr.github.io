@@ -145,7 +145,7 @@ Scene.prototype.render = function() {
     var value = 1;
 
     if (window.AudioContext || window.webkitAudioContext) {
-       value = ((this.music.getFrequency()[i] / 256) * 2.5) + 0.01;
+      value = ((this.music.getFrequency()[i] / 256) * 2.5) + 0.01;
     }
 
     if (this.clicked) {
