@@ -151,13 +151,13 @@ window.addEventListener('mousemove', function(e) {
 window.addEventListener('mousewheel', function(e) {
   var volume = Math.round(music.audio.volume * 100) / 100;
 
-    if (e.wheelDelta < 0 && volume - 0.05 >= 0) {
-        volume = Math.abs(volume - 0.05);
-    } else if (e.wheelDelta > 0 && volume + 0.05 <= 1) {
-        volume = Math.abs(volume + 0.05);
-    }
+  if (e.wheelDelta < 0 && volume - 0.05 >= 0) {
+    volume = Math.abs(volume - 0.05);
+  } else if (e.wheelDelta > 0 && volume + 0.05 <= 1) {
+    volume = Math.abs(volume + 0.05);
+  }
 
-    music.audio.volume = volume;
+  music.audio.volume = volume;
 });
 
 },{"./about":1,"./lib/get":2,"./menu":6,"./music":7,"./scene":12}],6:[function(require,module,exports){
@@ -277,15 +277,23 @@ function Music() {
   // Songs.
   this.songs = [
     'https://soundcloud.com/prettylights/pretty-lights-finally-moving',
+    'https://soundcloud.com/lol-lcs-music/atmosphere-pulse',
     'https://soundcloud.com/kflay/5-am-w-something-a-la-mode',
     'https://soundcloud.com/downtownrecords/justice-dance',
+    'https://soundcloud.com/lol-lcs-music/atmosphere-fast-lane-lights',
     'https://soundcloud.com/wolfganggartner/wolfgang-gartner-unholy-extended-mix',
+    'https://soundcloud.com/leagueoflegends/dj-sona-kinetic-the-crystal',
     'https://soundcloud.com/aviciiofficial/avicii-levels-original-mix',
+    'https://soundcloud.com/lol-lcs-music/atmosphere-havin-it',
     'https://soundcloud.com/c2cdjs/down-the-road',
     'https://soundcloud.com/madeon/pay-no-mind',
+    'https://soundcloud.com/lol-lcs-music/peter-habib-adam-nierow-lost',
     'https://soundcloud.com/futureclassic/hayden-james-something-about-you-2',
+    'https://soundcloud.com/lol-lcs-music/the-green-eye-game-changer',
     'https://soundcloud.com/majorlazer/major-lazer-dj-snake-lean-on-feat-mo',
+    'https://soundcloud.com/lol-lcs-music/master-kung-fu-good-chemistry',
     'https://soundcloud.com/whoismgmt/kids',
+    'https://soundcloud.com/lol-lcs-music/john-andersson-young-dreams',
     'https://soundcloud.com/themagician/lykke-li-i-follow-rivers-the-magician-remix'
   ];
 
@@ -854,7 +862,7 @@ Scene.prototype.render = function() {
     var value = 1;
 
     if (window.AudioContext || window.webkitAudioContext) {
-       value = ((this.music.getFrequency()[i] / 256) * 2.5) + 0.01;
+      value = ((this.music.getFrequency()[i] / 256) * 2.5) + 0.01;
     }
 
     if (this.clicked) {
@@ -954,27 +962,26 @@ Scene.prototype.click = function() {
  */
 
 module.exports = THREE.CopyShader = {
-	uniforms: {
-		"tDiffuse": { type: "t", value: null },
-		"opacity":  { type: "f", value: 1.0 }
-	},
-	vertexShader: [
-		"varying vec2 vUv;",
-		"void main() {",
-			"vUv = uv;",
-			"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
-		"}"
-	].join( "\n" ),
-	fragmentShader: [
-		"uniform float opacity;",
-		"uniform sampler2D tDiffuse;",
-		"varying vec2 vUv;",
-		"void main() {",
-			"vec4 texel = texture2D( tDiffuse, vUv );",
-			"gl_FragColor = opacity * texel;",
-		"}"
-	].join( "\n" )
-
+  uniforms: {
+    "tDiffuse": { type: "t", value: null },
+    "opacity":  { type: "f", value: 1.0 }
+  },
+  vertexShader: [
+    "varying vec2 vUv;",
+    "void main() {",
+    "vUv = uv;",
+    "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+    "}"
+  ].join( "\n" ),
+  fragmentShader: [
+    "uniform float opacity;",
+    "uniform sampler2D tDiffuse;",
+    "varying vec2 vUv;",
+    "void main() {",
+    "vec4 texel = texture2D( tDiffuse, vUv );",
+    "gl_FragColor = opacity * texel;",
+    "}"
+  ].join( "\n" )
 };
 
 },{}],14:[function(require,module,exports){
@@ -999,8 +1006,8 @@ module.exports = THREE.RGBShiftShader = {
   vertexShader: [
     "varying vec2 vUv;",
     "void main() {",
-      "vUv = uv;",
-      "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+    "vUv = uv;",
+    "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
     "}"
   ].join("\n"),
   fragmentShader: [
@@ -1009,11 +1016,11 @@ module.exports = THREE.RGBShiftShader = {
     "uniform float angle;",
     "varying vec2 vUv;",
     "void main() {",
-      "vec2 offset = amount * vec2( cos(angle), sin(angle));",
-      "vec4 cr = texture2D(tDiffuse, vUv + offset);",
-      "vec4 cga = texture2D(tDiffuse, vUv);",
-      "vec4 cb = texture2D(tDiffuse, vUv - offset);",
-      "gl_FragColor = vec4(cr.r, cga.g, cb.b, cga.a);",
+    "vec2 offset = amount * vec2( cos(angle), sin(angle));",
+    "vec4 cr = texture2D(tDiffuse, vUv + offset);",
+    "vec4 cga = texture2D(tDiffuse, vUv);",
+    "vec4 cb = texture2D(tDiffuse, vUv - offset);",
+    "gl_FragColor = vec4(cr.r, cga.g, cb.b, cga.a);",
     "}"
   ].join("\n")
 };

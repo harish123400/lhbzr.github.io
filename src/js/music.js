@@ -31,15 +31,23 @@ function Music() {
   // Songs.
   this.songs = [
     'https://soundcloud.com/prettylights/pretty-lights-finally-moving',
+    'https://soundcloud.com/lol-lcs-music/atmosphere-pulse',
     'https://soundcloud.com/kflay/5-am-w-something-a-la-mode',
     'https://soundcloud.com/downtownrecords/justice-dance',
+    'https://soundcloud.com/lol-lcs-music/atmosphere-fast-lane-lights',
     'https://soundcloud.com/wolfganggartner/wolfgang-gartner-unholy-extended-mix',
+    'https://soundcloud.com/leagueoflegends/dj-sona-kinetic-the-crystal',
     'https://soundcloud.com/aviciiofficial/avicii-levels-original-mix',
+    'https://soundcloud.com/lol-lcs-music/atmosphere-havin-it',
     'https://soundcloud.com/c2cdjs/down-the-road',
     'https://soundcloud.com/madeon/pay-no-mind',
+    'https://soundcloud.com/lol-lcs-music/peter-habib-adam-nierow-lost',
     'https://soundcloud.com/futureclassic/hayden-james-something-about-you-2',
+    'https://soundcloud.com/lol-lcs-music/the-green-eye-game-changer',
     'https://soundcloud.com/majorlazer/major-lazer-dj-snake-lean-on-feat-mo',
+    'https://soundcloud.com/lol-lcs-music/master-kung-fu-good-chemistry',
     'https://soundcloud.com/whoismgmt/kids',
+    'https://soundcloud.com/lol-lcs-music/john-andersson-young-dreams',
     'https://soundcloud.com/themagician/lykke-li-i-follow-rivers-the-magician-remix'
   ];
 
