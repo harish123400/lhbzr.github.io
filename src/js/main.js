@@ -42,11 +42,15 @@ musicToggle.addEventListener('click', function(e) {
 musicPrev.addEventListener('click', function(e) {
   e.stopPropagation();
 
+  musicToggle.classList.remove('is-paused');
+
   music.prev();
 });
 
 musicNext.addEventListener('click', function(e) {
   e.stopPropagation();
+
+  musicToggle.classList.remove('is-paused');
 
   music.next();
 });
