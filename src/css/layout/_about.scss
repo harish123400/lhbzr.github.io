@@ -32,8 +32,14 @@
 
 @media (max-width: 400px) {
   .about {
+    background: rgba(0, 0, 0, .75);
     height: 100%;
     text-align: center;
     width: 100%;
+  }
+
+  .about-title {
+    letter-spacing: 2px;
+    margin-top: 0.67em;
   }
 }
