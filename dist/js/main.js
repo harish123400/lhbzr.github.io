@@ -280,23 +280,7 @@ function Music() {
 
   // Songs.
   this.songs = [
-    // League of Legends.
-    //    'https://soundcloud.com/leagueoflegends/dj-sona-kinetic-the-crystal',
-    //    'https://soundcloud.com/lol-lcs-music/laurent-lipszyc-mighty-masters',
-    //    'https://soundcloud.com/olmosesual/it-goes-on-and-on-kevin-zaremba',
-    //    'https://soundcloud.com/lol-lcs-music/dom-kane-serial-number',
-    //    'https://soundcloud.com/danny_mccarthy/the-look',
-    //    'https://soundcloud.com/trailermen/cold-sweat',
-    //    'https://soundcloud.com/lol-lcs-music/atmosphere-havin-it',
-    //    'https://soundcloud.com/lol-lcs-music/atmosphere-pulse',
-    //    'https://soundcloud.com/lol-lcs-music/atmosphere-fast-lane-lights',
-    //    'https://soundcloud.com/lol-lcs-music/peter-habib-adam-nierow-lost',
-    //    'https://soundcloud.com/lol-lcs-music/the-green-eye-game-changer',
-    //    'https://soundcloud.com/lol-lcs-music/master-kung-fu-good-chemistry',
-    //    'https://soundcloud.com/lol-lcs-music/john-andersson-young-dreams',
-    //    'https://soundcloud.com/whit3str/josselin-bordat-le-fat-club',
-
-    // Playlist.
+    'https://soundcloud.com/leagueoflegends/dj-sona-kinetic-the-crystal',
     'https://soundcloud.com/alpineband/gasoline-2',
     'https://soundcloud.com/odesza/say_my_name',
     'https://soundcloud.com/c2cdjs/down-the-road',
@@ -306,7 +290,7 @@ function Music() {
     'https://soundcloud.com/majorlazer/major-lazer-dj-snake-lean-on-feat-mo',
     'https://soundcloud.com/themagician/lykke-li-i-follow-rivers-the-magician-remix',
     'https://soundcloud.com/prettylights/pretty-lights-finally-moving',
-    'https://soundcloud.com/mysteryskulls/ghost'
+    'https://soundcloud.com/blackoceanrecords/black-ocean-records-presents-robin-schulz-sugar-feat-francesco-yates'
   ];
 
 
