@@ -39,8 +39,7 @@ function Music() {
     'https://soundcloud.com/kflay/5-am-w-something-a-la-mode',
     'https://soundcloud.com/majorlazer/major-lazer-dj-snake-lean-on-feat-mo',
     'https://soundcloud.com/themagician/lykke-li-i-follow-rivers-the-magician-remix',
-    'https://soundcloud.com/prettylights/pretty-lights-finally-moving',
-    'https://soundcloud.com/blackoceanrecords/black-ocean-records-presents-robin-schulz-sugar-feat-francesco-yates'
+    'https://soundcloud.com/prettylights/pretty-lights-finally-moving'
   ];
 
 
