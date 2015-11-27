@@ -8,7 +8,13 @@ module.exports = (function() {
   Draggable.create(about, {
     bounds: document.body,
     edgeResistance: 1,
-    type: 'x, y'
+    type: 'x, y',
+    onDrag: function(e) {
+      TweenLite.to(this.target, .1, {
+        x: this.x,
+        y: this.y
+      });
+    }
   });
 
   // Hover.

@@ -33,13 +33,14 @@ function Music() {
     'https://soundcloud.com/leagueoflegends/dj-sona-kinetic-the-crystal',
     'https://soundcloud.com/alpineband/gasoline-2',
     'https://soundcloud.com/odesza/say_my_name',
-    'https://soundcloud.com/c2cdjs/down-the-road',
+//    'https://soundcloud.com/c2cdjs/down-the-road',
     'https://soundcloud.com/madeon/pay-no-mind',
     'https://soundcloud.com/futureclassic/hayden-james-something-about-you-2',
     'https://soundcloud.com/kflay/5-am-w-something-a-la-mode',
     'https://soundcloud.com/majorlazer/major-lazer-dj-snake-lean-on-feat-mo',
     'https://soundcloud.com/themagician/lykke-li-i-follow-rivers-the-magician-remix',
-    'https://soundcloud.com/prettylights/pretty-lights-finally-moving'
+//    'https://soundcloud.com/prettylights/pretty-lights-finally-moving',
+    'https://soundcloud.com/rac/lana-del-rey-blue-jeans-rac'
   ];
 
 

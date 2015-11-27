@@ -28,11 +28,12 @@ body {
   font: 16px 'Hack', 'sans-serif';
   height: 100%;
   margin: 0;
+  overflow: hidden;
   user-select: none;
 
   /* Effects */
   &:after {
-    background: repeating-radial-gradient(center center, rgba(255, 255, 255, .5), rgba(0, 0, 0, .2) 1px, transparent 1px, transparent 100%);
+    background: repeating-radial-gradient(center center, rgba(255, 255, 255, .75), rgba(0, 0, 0, .2) 1px, transparent 1px, transparent 100%);
     background-size: 30px 30px;
     bottom: 15px;
     content: '';
